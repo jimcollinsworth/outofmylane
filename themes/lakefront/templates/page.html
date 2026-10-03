@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} &mdash; {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<article class="page-body">
+  {# Note: Redundant page <h1> title omitted because active nav tab serves as the title #}
+  {{ page.content }}
+</article>
+{% endblock %}

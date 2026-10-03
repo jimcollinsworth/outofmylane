@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "category_icon.html" import category_icon, article_provenance %}
+
+{% block title %}{{ article.title }} &mdash; {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<article class="post">
+  <header class="post-header-full">
+    <div class="post-header-row">
+      <div class="post-header-left">
+        {% if article.type and article.type|upper == 'IDEA' %}
+        <a href="{{ SITEURL }}/ideas.html" class="post-back-arrow" title="Back to Ideas" aria-label="Back to Ideas">&larr;</a>
+        {% else %}
+        <a href="{{ SITEURL }}/posts.html" class="post-back-arrow" title="Back to Posts" aria-label="Back to Posts">&larr;</a>
+        {% endif %}
+        {{ article_provenance(article) }}
+        <h1 class="post-title">{{ article.title }}</h1>
+      </div>
+      <div class="post-header-right">
+        {% if article.type %}
+        <span class="post-type">{{ article.type|upper }}</span>
+        {% endif %}
+        <time datetime="{{ article.date.strftime('%Y-%m-%d') }}">{{ article.date.strftime('%b %y') }}</time>
+      </div>
+    </div>
+  </header>
+
+  <div class="post-content">
+    {{ article.content }}
+  </div>
+</article>
+{% endblock %}

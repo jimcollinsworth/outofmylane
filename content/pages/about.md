@@ -7,6 +7,7 @@ category: page
 tags: me
 summary: Jim Collinsworth - software development from punch cards thru AI
 author: jim collinsworth
+template: page
 status: published                      
 ---
 

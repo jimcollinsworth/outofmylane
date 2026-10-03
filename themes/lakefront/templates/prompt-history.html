@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% from "category_icon.html" import category_icon %}
+
+{% block title %}{{ page.title }} &mdash; {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<article class="page-body">
+  <header class="post-header-full">
+    <div class="post-header-row">
+      <div class="post-header-left">
+        <a href="./about-this-site.html" class="post-back-arrow" title="Back to About This Site" aria-label="Back to About This Site">&larr;</a>
+        {{ category_icon('AI+Mine') }}
+        <h1 class="post-title">{{ page.title }}</h1>
+      </div>
+      <div class="post-header-right">
+        {% if DEV_PROMPTS and DEV_PROMPTS.latest_formatted %}
+        <time datetime="{{ DEV_PROMPTS.latest_date_str }}">{{ DEV_PROMPTS.latest_formatted }}</time>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <div class="page-intro">
+    {{ page.content }}
+  </div>
+
+  {% if DEV_PROMPTS and DEV_PROMPTS.milestones %}
+  <div class="prompts-timeline" style="margin-top: 1.5rem;">
+    {% for m in DEV_PROMPTS.milestones %}
+    <div class="milestone-header">
+      <h2 class="milestone-title"><a href="{{ m.rel_link }}" target="_blank" rel="noopener">{{ m.title }}</a></h2>
+      {% if m.formatted_date %}
+      <time datetime="{{ m.date }}" class="milestone-date">{{ m.formatted_date }}</time>
+      {% endif %}
+    </div>
+
+    <div class="chat-thread">
+      <div class="chat-bubble chat-user">
+        <div class="chat-meta">{{ category_icon('Mine') }} <strong class="chat-name">Jim</strong></div>
+        <div class="chat-body">
+          {% for p in m.prompts %}
+          <p>{{ p }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if m.actions %}
+      <div class="chat-bubble chat-ai">
+        <div class="chat-meta">{{ category_icon('AI') }} <strong class="chat-name">AI Assistant (LLM-Gemini3.8)</strong></div>
+        <div class="chat-body">
+          <ul class="response-actions">
+            {% for a in m.actions %}
+            <li>{{ a }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div style="margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
+    <a href="./about-this-site.html">&larr; Return to About This Site</a> &bull;
+    <a href="https://github.com/jimcollinsworth/jimcollinsworth.github.io/releases" target="_blank" rel="noopener">View GitHub Releases History &rarr;</a>
+  </div>
+</article>
+{% endblock %}

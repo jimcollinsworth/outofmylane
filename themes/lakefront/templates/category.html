@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% from "category_icon.html" import category_icon %}
+
+{% block title %}{{ category }} Posts &mdash; {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<header class="post-header-full">
+  <div class="post-header-row">
+    <div class="post-header-left">
+      <a href="{{ SITEURL }}/posts.html" class="post-back-arrow" title="All Posts" aria-label="All Posts">&larr;</a>
+      <h2 style="font-size: 1.45rem; font-weight: 700; margin: 0; padding: 0; border-bottom: none;">Category: {{ category }}</h2>
+    </div>
+  </div>
+</header>
+
+<ul class="post-list">
+  {% for article in articles %}
+  <li class="post-item">
+    <div class="post-header-row">
+      <div class="post-header-left">
+        {% if article.category %}
+        {{ category_icon(article.category, article.author) }}
+        {% endif %}
+        <h3 class="post-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+      </div>
+      <div class="post-header-right">
+        {% if article.type %}
+        <span class="post-type">{{ article.type|upper }}</span>
+        {% endif %}
+        <time datetime="{{ article.date.strftime('%Y-%m-%d') }}">{{ article.date.strftime('%b %y') }}</time>
+      </div>
+    </div>
+    {% if article.summary %}
+    <p class="post-desc">
+      {{ article.summary|striptags }}
+    </p>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
