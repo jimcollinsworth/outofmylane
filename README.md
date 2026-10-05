@@ -1,6 +1,6 @@
 # Out of My Lane (`outofmylane`)
 
-> Personal static site and knowledge garden for Jim Collinsworth, exploring software, data science, tai chi, classical guitar, piano, woodworking, and AI.
+> Personal static site and knowledge garden for Jim Collinsworth, exploring software, data science, tai chi, classical guitar, piano, woodworking, and AI. Built with Pelican, pure HTML5/CSS, zero client-side JavaScript, and the custom Lakefront theme.
 
 ---
 
@@ -11,20 +11,49 @@
 * **Zero Client-Side JavaScript**: Zero `<script>` tags on published content. Interactivity (light/dark mode toggle, high-contrast mode, font size adjustment, responsive navigation) is achieved entirely through standard semantic HTML5 and CSS specifications (`:has()`, media queries).
 * **Responsive Layout**: Designed for mobile portrait/landscape (>= 390px), tablets, standard desktop, and high-resolution displays. On large screens, the home post stream splits into a dual-column list; on mobile, it flows in a single stacked column.
 * **WCAG AAA Accessibility**: High contrast, fluid typography, visible focus indicators, skip-to-content links, and minimum 44px touch targets.
+* **100% Human Content Ownership**: Markdown source files in `content/` are authored exclusively by Jim. Zero AI drafts or generated prose in `content/`.
 
 ---
 
-## 2. Content Taxonomy & "Lanes" Architecture
+## 2. Directory Layout & Architecture Map
+
+```text
+d:\projects\outofmylane\
+├── AGENTS.md                            # Root Agent Guidelines & Operating Rules
+├── .agents/                             # Agent configuration directory
+│   ├── agent_rules.md                   # Operational rules & permissions
+│   └── skills/                          # Project-level agent skills
+│       ├── pelican-obsidian-bridge/     # Obsidian content sync skill
+│       └── pelican-site-manager/        # Pelican static site build skill
+├── content/                             # Markdown source directory
+│   ├── posts/                           # Human-authored Markdown articles
+│   ├── pages/                           # Static pages (about.md, home.md)
+│   ├── lanes/                           # Lane prose files (taichi.md, ai.md)
+│   ├── media/                           # Images, audio, video, docs
+│   └── attachments/                     # Direct drop target for Obsidian embeds
+├── themes/                              # Packaged themes directory
+│   └── lakefront/                       # Active Lakefront theme
+│       ├── static/css/style.css         # Central visual stylesheet
+│       └── templates/*.html             # Jinja2 layout blueprints
+├── pelicanconf.py                       # Local Pelican development configuration
+├── publishconf.py                       # Production Pelican configuration
+├── pyproject.toml                       # Python package manifest & dependencies
+└── output/                              # Compiled static HTML output
+```
+
+---
+
+## 3. Content Taxonomy & "Lanes" Architecture
 
 In `outofmylane`, topics are organized by **Lanes** rather than generic categories.
- 
+
 ### A. Lanes (`category`)
 Pelican's native `category` field functions as the primary "Lane".
 * **Authored in `/content/lanes/`**: Each Lane is defined by a Markdown file in `content/lanes/<lane>.md` (e.g., `content/lanes/taichi.md`). The YAML frontmatter (`title`, `slug`, `summary`) and Markdown body in this file are merged into the Lane detail page (`lanes/<slug>.html`) and the Lane index (`lanes.html`).
 * **Strict Provenance**: Only lanes authored in `content/lanes/` are emitted in the compiled site. Articles specify their lane via `category: <slug>`. If an article does not assign a lane, it is published without category grouping.
 * **Placeholder Rule**: If structural scaffolding is needed, obvious placeholder indicators (e.g. `[Lane notes in progress]`) are used rather than simulated AI copy.
 
-### B. Tags & Provenance
+### B. Tags & Provenance Streams ("On the Downlow")
 * **Provenance Tags**: Reflect authorship origin: `me`, `mine`, `ai`, `ours`, `theirs`, or dual `ai+mine`.
 * **Topic Tags**: Fine-grained taxonomy (e.g., `taichi-108`, `chicago`, `python`).
 * **Tag Prose Merging via `/content/tags/`**: Subfolders and files in `content/tags/<tag>.md` can supply custom editorial prose for specific tags.
@@ -70,7 +99,17 @@ menu_title: Short Title             # Nav link label override
 
 ---
 
-## 3. Media Handling & Obsidian Bridge
+## 4. Visual & Typographic Design Principles
+
+Inspired by refined editorial typography and distraction-free reading:
+- **Header Branding**: Title (`out of my lane`) and Subtitle (`Jim Collinsworth`).
+- **Reading Line Measure**: Constrained line lengths for comfortable reading (60–75 characters per line, `max-width: 680px–740px`).
+- **Dense Scannability**: Month-year date formatting (`Sep 26`, `Aug 26`), compact section-level links `(ALL)` placed inline adjacent to headings, and zero standalone trailing link lines.
+- **Pure CSS Sticky Cover**: Optional background hero header (`position: sticky; top: 0; z-index: 1`) that gets covered as content stream (`position: relative; z-index: 2; box-shadow: ...`) scrolls up over it. Automatically hidden on small landscape phones.
+
+---
+
+## 5. Media Handling & Obsidian Bridge
 
 Static media is organized under `content/media/` and `content/attachments/`:
 ```text
@@ -90,42 +129,40 @@ content/
 
 ---
 
-## 4. DevOps, Setup & Build Commands
+## 6. AI Attribution & Provenance Standards
+
+Whenever an AI model co-authors or synthesizes code, templates, or artifacts, the specific model identifier prefixed with `LLM-` must be credited (e.g. `Authors: Jim Collinsworth, LLM-Gemini3.8`).
+
+---
+
+## 7. DevOps, Setup & Build Commands
 
 ### Environment Setup
 Python dependencies are managed via `uv`:
 ```cmd
-:: Activate virtual environment
-.venv\Scripts\activate
-
-:: Install / sync dependencies
-uv sync
+cmd /c "uv sync"
 ```
 
 ### Static Site Build
 ```cmd
-:: Build site locally with delete-output (-d) flag
-uv run pelican content -s pelicanconf.py -o output -d
-
-:: Serve site locally with auto-reload
-uv run pelican --listen -r
+cmd /c "uv run pelican content -s pelicanconf.py -o output -d"
 ```
 
-### Testing & Verification
-Test suites are located in `tests/` and execute with `pytest`:
+### Local Preview Server
 ```cmd
-:: Run full verification suite
-cmd /c "uv run pytest -v"
+cmd /c "uv run pelican --listen -r"
+```
 
-:: Target smoke check
-cmd /c "uv run pytest tests/test_accessibility.py -v"
+### Automated Testing & Verification
+```cmd
+cmd /c "uv run pytest -v"
 ```
 
 ---
 
-## 5. Agent Guidelines & Operational Rules
+## 8. Git Branching & Operational Rules
 
-1. **Mandatory Obvious Placeholder Rule**: Missing content or structural scaffolding must strictly use obvious placeholder text (e.g. `[Placeholder summary]`). Agents must **never** fabricate AI copy.
-2. **AI Attribution Standard**: Any code, templates, or documentation co-authored by AI models must explicitly cite the model identifier (e.g., `LLM-Gemini3.8`) per Rule 12 in `AGENTS.md`.
-3. **Small-Team Git Branching**: `main` is production-only. All active work occurs on feature branches (`feature/*`) and is never pushed without explicit user instruction.
+1. **`main` is Production-Only**: `main` directly drives live deployments. All feature development occurs on `feature/*` or `bug/*` branches.
+2. **Explicit Push Authorization**: Remote pushes (`git push`) are executed ONLY upon explicit instruction from Jim.
+3. **Continuous Commit-Level Versioning**: Every commit set increments the version (`0.8.01`), synchronized in `pyproject.toml`.
 4. **Mandatory Governance Documents**: `README.md`, `PLANNING.md`, `ROADMAP.md`, `JOURNAL.md`, `AGENTS.md`, and `TESTING.md`.
