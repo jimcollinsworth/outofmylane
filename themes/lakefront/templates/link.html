@@ -4,7 +4,7 @@
 {% block title %}{{ article.title }} &mdash; {{ SITENAME }}{% endblock %}
 
 {% block content %}
-<article class="post-body">
+<article class="post-body link-body">
   <header class="post-header-full">
     <div class="post-header-row">
       <div class="post-header-left">
@@ -14,24 +14,28 @@
         <a href="{{ SITEURL }}/index.html" class="post-back-arrow" title="Back to Home" aria-label="Back to Home">&larr;</a>
         {% endif %}
         {{ article_icons(article) }}
-        <h1 class="post-title">{{ article.title }}</h1>
+        <h1 class="post-title">
+          {% if article.external_url %}
+          <a href="{{ article.external_url }}" target="_blank" rel="noopener" class="external-title-link">{{ article.title }} <span class="external-arrow">&nearr;</span></a>
+          {% else %}
+          {{ article.title }}
+          {% endif %}
+        </h1>
       </div>
       <div class="post-header-right">
-        {% set t = article.template or article.type %}
-        {% if t and t|lower != 'post' %}
-        <span class="post-type">{{ TYPE_METADATA.get(t|lower, {}).get('code', t|upper) }}</span>
-        {% endif %}
+        <span class="post-type">LINK</span>
         <time datetime="{{ article.date.strftime('%Y-%m-%d') }}">{{ article.date.strftime('%b %y')|upper }}</time>
       </div>
     </div>
-    {% if article.author and article.author != AUTHOR %}
+    {% if article.original_author or article.isbn %}
     <div class="post-meta-sub">
-      <span class="post-author">By {{ article.author }}</span>
+      {% if article.original_author %}<span class="original-author">Source / Author: {{ article.original_author }}</span>{% endif %}
+      {% if article.isbn %}<span class="book-isbn">ISBN: {{ article.isbn }}</span>{% endif %}
     </div>
     {% endif %}
   </header>
 
-  <div class="post-content">
+  <div class="post-content link-content">
     {{ article.content }}
   </div>
 

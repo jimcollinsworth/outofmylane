@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Tags &mdash; {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<header class="lane-header">
+  <div class="lane-title-row">
+    <a href="{{ SITEURL }}/index.html" class="post-back-arrow" title="Back to Home" aria-label="Back to Home">&larr;</a>
+    <h1 class="lane-title">Tags &amp; Provenance</h1>
+  </div>
+  <div class="lane-intro-prose">
+    <p>Index of topics, provenance tags, and conceptual markers across Out of My Lane.</p>
+  </div>
+</header>
+
+<div class="tags-container">
+  {% for tag, articles in tags %}
+  <span class="tag-item">
+    <a href="{{ SITEURL }}/{{ tag.url }}" class="tag-badge">#{{ tag.name }} <span class="tag-count">({{ articles|length }})</span></a>
+  </span>
+  {% endfor %}
+</div>
+{% endblock %}

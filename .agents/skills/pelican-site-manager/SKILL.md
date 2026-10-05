@@ -78,3 +78,19 @@ cmd /c "uv run pelican content -s publishconf.py -o output -d"
 
 6. **Theme Reusability & Modular Pathing**:
    - Configure modular theme paths via `THEME = 'themes/lakefront'` for instant deployment across multiple sites.
+
+---
+
+## 4. Verification & Testing
+
+For complete testing strategies, test suites, and browser verification workflows, consult:
+- **Comprehensive Testing Guide**: [`TESTING.md`](../../TESTING.md)
+- **Pelican Testing Reference**: [`docs/pelican-testing-reference.md`](../../docs/pelican-testing-reference.md)
+
+### Verification Checklist
+After executing a static build:
+1. **Targeted Smoke Run**: `cmd /c "uv run pytest tests/test_accessibility.py -k test_html_lang_attribute"`
+2. **Zero-JS Check**: Verify no unauthorized `<script>` tags were introduced into editorial content.
+3. **Link & Asset Integrity**: Ensure relative internal links and referenced images resolve cleanly.
+4. **Browser & Responsive Check**: Inspect computed styles, layout margins, and responsive viewports with Playwright.
+

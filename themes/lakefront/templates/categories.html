@@ -1,21 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}Pursuit Lanes &mdash; {{ SITENAME }}{% endblock %}
+{% block title %}Lanes &mdash; {{ SITENAME }}{% endblock %}
 
 {% block content %}
-<div class="page-intro">
-  <p>
-    The name <em>Out of My Lane</em> reflects my habit of venturing into domains well outside conventional boundaries. Rather than siloing into a single specialty, my active projects, technical deep dives, and observations are organized across thematic pursuit lanes.
-  </p>
-</div>
+<header class="lane-header">
+  <div class="lane-title-row">
+    <a href="{{ SITEURL }}/index.html" class="post-back-arrow" title="Back to Home" aria-label="Back to Home">&larr;</a>
+    <h1 class="lane-title">Lanes</h1>
+  </div>
+</header>
 
-<h2>All Active Lanes</h2>
-
-<div class="lanes-list grid-view">
+<div class="lanes-grid">
   {% for cat, articles in categories %}
-  <div class="lane-entry">
-    <h3><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></h3>
-    <p>{{ articles|length }} post{% if articles|length != 1 %}s{% endif %} &bull; <a href="{{ SITEURL }}/{{ cat.url }}">Browse lane &rarr;</a></p>
+  <div class="lane-card">
+    <h2 class="lane-card-title"><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat.name }}</a></h2>
+    {% if cat.summary %}
+    <p class="lane-card-desc">{{ cat.summary }}</p>
+    {% else %}
+    <p class="lane-card-desc"><em>[Lane notes in progress for {{ cat.name }}]</em></p>
+    {% endif %}
+    <div class="lane-card-meta">
+      <span>{{ articles|length }} post{% if articles|length != 1 %}s{% endif %}</span>
+      <a href="{{ SITEURL }}/{{ cat.url }}" class="lane-card-link">Browse lane &rarr;</a>
+    </div>
   </div>
   {% endfor %}
 </div>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ DEFAULT_LANG }}">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{{ SITENAME }}{% if SITESUBTITLE %} &mdash; {{ SITESUBTITLE }}{% endif %}{% endblock %}</title>
-  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css">
-  <link rel="icon" href="{{ SITEURL }}/favicon.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="{{ SITEURL }}/favicon.ico" type="image/x-icon">
+  <title>Lane: Tai Chi &mdash; Out of My Lane</title>
+  <link rel="stylesheet" href="../theme/css/style.css">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -18,30 +18,40 @@
     <header class="site-header" role="banner">
       <div class="header-main-row">
         <div class="author-brand">
-          <a href="{{ SITEURL }}/index.html" class="author-name">{{ AUTHOR }}</a>
+          <a href="../index.html" class="author-name">Jim Collinsworth</a>
         </div>
         <div class="site-title-badge">
-          <span class="site-title-text">{{ SITENAME }}</span>
+          <span class="site-title-text">Out of My Lane</span>
         </div>
       </div>
       <div class="header-nav-row">
         <nav class="site-nav" aria-label="Main Navigation">
-          {% for title, url, match_key in MENUITEMS %}
-            <a href="{{ SITEURL }}{{ url }}"{% if (output_file == match_key) or (page and page.slug == match_key) %} class="active" aria-current="page"{% endif %}>{{ title }}</a>
-          {% endfor %}
+            <a href="../index.html">Home</a>
+            <a href="../about.html">About</a>
         </nav>
       </div>
     </header>
 
     <main id="main-content" tabindex="-1">
-      {% block content %}{% endblock %}
+<header class="lane-header">
+  <div class="lane-title-row">
+    <a href="../lanes.html" class="post-back-arrow" title="All Lanes" aria-label="All Lanes">&larr;</a>
+    <h1 class="lane-title">Lane: Tai Chi</h1>
+  </div>
+  <div class="lane-intro-prose">
+    <p>I've been practicing/playing taichi for over 10 years now, enjoying improvements in balance, strength, flexibility as well as thinking and discussions about it's mechanics, history, mechanisms, pedology, beauty..</p>
+  </div>
+</header>
+
+<div class="empty-posts-state">
+  <p class="empty-notice"><em>[No posts in this lane yet.]</em></p>
+</div>
     </main>
 
     <footer class="site-footer" role="contentinfo">
       <nav class="footer-nav" aria-label="Footer Navigation">
-        {% for title, url, match_key in MENUITEMS %}
-          <a href="{{ SITEURL }}{{ url }}">{{ title }}</a>
-        {% endfor %}
+          <a href="../index.html">Home</a>
+          <a href="../about.html">About</a>
       </nav>
       <div class="footer-controls">
         <div class="site-controls" role="group" aria-label="Display and accessibility preferences">

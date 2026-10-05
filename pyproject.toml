@@ -1,6 +1,6 @@
 [project]
 name = "outofmylane"
-version = "0.8.01"
+version = "0.8.03"
 description = "Pelican static site pipeline for outofmylane"
 readme = "README.md"
 requires-python = ">=3.12"

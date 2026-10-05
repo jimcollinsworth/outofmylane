@@ -4,7 +4,7 @@
 {% block title %}{{ article.title }} &mdash; {{ SITENAME }}{% endblock %}
 
 {% block content %}
-<article class="post-body">
+<article class="post-body idea-body">
   <header class="post-header-full">
     <div class="post-header-row">
       <div class="post-header-left">
@@ -17,21 +17,13 @@
         <h1 class="post-title">{{ article.title }}</h1>
       </div>
       <div class="post-header-right">
-        {% set t = article.template or article.type %}
-        {% if t and t|lower != 'post' %}
-        <span class="post-type">{{ TYPE_METADATA.get(t|lower, {}).get('code', t|upper) }}</span>
-        {% endif %}
+        <span class="post-type">IDEA</span>
         <time datetime="{{ article.date.strftime('%Y-%m-%d') }}">{{ article.date.strftime('%b %y')|upper }}</time>
       </div>
     </div>
-    {% if article.author and article.author != AUTHOR %}
-    <div class="post-meta-sub">
-      <span class="post-author">By {{ article.author }}</span>
-    </div>
-    {% endif %}
   </header>
 
-  <div class="post-content">
+  <div class="post-content idea-content">
     {{ article.content }}
   </div>
 

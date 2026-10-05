@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ DEFAULT_LANG }}">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{{ SITENAME }}{% if SITESUBTITLE %} &mdash; {{ SITESUBTITLE }}{% endif %}{% endblock %}</title>
-  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css">
-  <link rel="icon" href="{{ SITEURL }}/favicon.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="{{ SITEURL }}/favicon.ico" type="image/x-icon">
+  <title>Tag: #lakefront &mdash; Out of My Lane</title>
+  <link rel="stylesheet" href="../theme/css/style.css">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -18,30 +18,57 @@
     <header class="site-header" role="banner">
       <div class="header-main-row">
         <div class="author-brand">
-          <a href="{{ SITEURL }}/index.html" class="author-name">{{ AUTHOR }}</a>
+          <a href="../index.html" class="author-name">Jim Collinsworth</a>
         </div>
         <div class="site-title-badge">
-          <span class="site-title-text">{{ SITENAME }}</span>
+          <span class="site-title-text">Out of My Lane</span>
         </div>
       </div>
       <div class="header-nav-row">
         <nav class="site-nav" aria-label="Main Navigation">
-          {% for title, url, match_key in MENUITEMS %}
-            <a href="{{ SITEURL }}{{ url }}"{% if (output_file == match_key) or (page and page.slug == match_key) %} class="active" aria-current="page"{% endif %}>{{ title }}</a>
-          {% endfor %}
+            <a href="../index.html">Home</a>
+            <a href="../about.html">About</a>
         </nav>
       </div>
     </header>
 
     <main id="main-content" tabindex="-1">
-      {% block content %}{% endblock %}
+<header class="lane-header">
+  <div class="lane-title-row">
+    <a href="../index.html" class="post-back-arrow" title="Back to Home" aria-label="Back to Home">&larr;</a>
+    <h1 class="lane-title">Tag: #lakefront</h1>
+  </div>
+</header>
+
+<div class="posts-container responsive-columns">
+  <ul class="post-list">
+    <li class="post-item">
+      <div class="post-header-row">
+        <div class="post-header-left">
+          <span class="article-lead-icons">
+  <span class="provenance-badge" title="Provenance: Mine" aria-label="Provenance: Mine">
+  <svg class="site-icon icon-mine" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+</span>
+
+</span>
+
+          <h2 class="post-title"><a href="../posts/photo-lakeshore.html">Chicago Lakefront Sunrise Study</a></h2>
+        </div>
+        <div class="post-header-right">
+          <span class="post-type">PHOTO</span>
+          <time datetime="2026-10-04">OCT 26</time>
+        </div>
+      </div>
+      <p class="post-teaser">"Sunrise chicago July 11, 2022"</p>
+    </li>
+  </ul>
+</div>
     </main>
 
     <footer class="site-footer" role="contentinfo">
       <nav class="footer-nav" aria-label="Footer Navigation">
-        {% for title, url, match_key in MENUITEMS %}
-          <a href="{{ SITEURL }}{{ url }}">{{ title }}</a>
-        {% endfor %}
+          <a href="../index.html">Home</a>
+          <a href="../about.html">About</a>
       </nav>
       <div class="footer-controls">
         <div class="site-controls" role="group" aria-label="Display and accessibility preferences">

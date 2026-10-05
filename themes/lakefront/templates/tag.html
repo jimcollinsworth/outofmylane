@@ -1,25 +1,21 @@
 {% extends "base.html" %}
 {% from "category_icon.html" import article_icons %}
 
-{% block title %}Lane: {{ category.name }} &mdash; {{ SITENAME }}{% endblock %}
+{% block title %}Tag: #{{ tag.name }} &mdash; {{ SITENAME }}{% endblock %}
 
 {% block content %}
 <header class="lane-header">
   <div class="lane-title-row">
-    <a href="{{ SITEURL }}/lanes.html" class="post-back-arrow" title="All Lanes" aria-label="All Lanes">&larr;</a>
-    <h1 class="lane-title">Lane: {{ category.name }}</h1>
+    <a href="{{ SITEURL }}/index.html" class="post-back-arrow" title="Back to Home" aria-label="Back to Home">&larr;</a>
+    <h1 class="lane-title">Tag: #{{ tag.name }}</h1>
   </div>
-  {% if category.intro_html %}
+  {% if tag.intro_html %}
   <div class="lane-intro-prose">
-    {{ category.intro_html }}
+    {{ tag.intro_html }}
   </div>
-  {% elif category.summary %}
+  {% elif tag.summary %}
   <div class="lane-intro-prose">
-    <p>{{ category.summary }}</p>
-  </div>
-  {% else %}
-  <div class="lane-intro-prose">
-    <p><em>[Lane notes in progress for {{ category.name }}]</em></p>
+    <p>{{ tag.summary }}</p>
   </div>
   {% endif %}
 </header>
@@ -43,9 +39,7 @@
         </div>
       </div>
       {% if article.summary %}
-      <p class="post-teaser">
-        {{ article.summary|striptags }}
-      </p>
+      <p class="post-teaser">{{ article.summary|striptags }}</p>
       {% endif %}
     </li>
     {% endfor %}
@@ -53,7 +47,7 @@
 </div>
 {% else %}
 <div class="empty-posts-state">
-  <p class="empty-notice"><em>[No posts in this lane yet.]</em></p>
+  <p class="empty-notice"><em>[No posts with this tag yet.]</em></p>
 </div>
 {% endif %}
 {% endblock %}

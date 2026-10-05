@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>out of my lane &mdash; Jim Collinsworth</title>
+  <title>Out of My Lane &mdash; Jim Collinsworth</title>
   <link rel="stylesheet" href="./theme/css/style.css">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="alternate icon" href="./favicon.ico" type="image/x-icon">
@@ -13,125 +13,64 @@
   <input type="checkbox" id="theme-toggle" class="sr-only mode-toggle-input">
   <input type="checkbox" id="contrast-toggle" class="sr-only mode-toggle-input">
   <input type="checkbox" id="text-size-toggle" class="sr-only mode-toggle-input">
-  <div class="container">
-    <header class="site-header" role="banner">
-      <div class="site-branding">
-        <div class="site-title"><a href="./index.html">out of my lane</a></div>
-        <div class="site-tagline"><a href="./posts.html" title="All Posts">Jim Collinsworth</a></div>
-      </div>
-      <div class="site-nav-row">
 
-        <nav class="site-nav desktop-nav" aria-label="Main Navigation">
+  <div class="site-container">
+    <header class="site-header" role="banner">
+      <div class="header-main-row">
+        <div class="author-brand">
+          <a href="./index.html" class="author-name">Jim Collinsworth</a>
+        </div>
+        <div class="site-title-badge">
+          <span class="site-title-text">Out of My Lane</span>
+        </div>
+      </div>
+      <div class="header-nav-row">
+        <nav class="site-nav" aria-label="Main Navigation">
             <a href="./index.html" class="active" aria-current="page">Home</a>
             <a href="./about.html">About</a>
         </nav>
-
-        <details class="mobile-nav-dropdown">
-          <summary class="mobile-nav-summary" aria-label="Navigation Menu">
-            <span class="mobile-nav-current">Home</span>
-            <svg class="mobile-nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </summary>
-          <nav class="mobile-nav-menu" aria-label="Mobile Navigation">
-              <a href="./index.html" class="active" aria-current="page">Home</a>
-              <a href="./about.html">About</a>
-          </nav>
-        </details>
       </div>
     </header>
 
     <main id="main-content" tabindex="-1">
-<div class="intro-blurb">
-  <p>
-    Welcome. I'm Jim Collinsworth &mdash; retired after 50 years with software and clients, exploring software, data, tai chi, classical guitar, piano, woodworking, and AI. <a href="./about.html" class="about-arrow" title="About Jim" aria-label="About Jim">&rarr;</a>
-  </p>
-</div>
-
-
-<div class="desktop-two-col">
-  <!-- Main Column: Featured Long-form & Photo Spotlight -->
-  <div class="main-column">
-    <section>
-      <h2>Featured Post</h2>
-    </section>
-
-    <section>
-      <h2>Photo Spotlight <span class="header-all-link">(<a href="./photos.html">ALL</a>)</span></h2>
-      <div class="photo-stream">
-        <figure>
-          <a href="./images/sky-lakefront.jpg" class="photo-link" title="Click to view full screen">
-            <img src="./images/sky-lakefront.jpg" alt="Lake Michigan horizon study" loading="lazy">
-          </a>
-          <figcaption>Lake Michigan horizon &mdash; Chicago lakefront morning study</figcaption>
-        </figure>
+<section class="featured-section" aria-label="Featured content">
+  <div class="featured-grid">
+    <article class="featured-item featured-photo-item">
+      <div class="featured-photo-wrapper">
+        <a href="./posts/photo-lakeshore.html" title="Chicago Lakefront Sunrise Study">
+          <img src="./media/images/sky-clouds.jpg" alt="Chicago Lakefront Sunrise Study" loading="lazy" class="featured-img">
+        </a>
       </div>
-    </section>
+      <div class="featured-content">
+        <div class="post-header-row">
+          <div class="post-header-left">
+            <span class="article-lead-icons">
+                <span class="provenance-badge" title="Provenance: Mine" aria-label="Provenance: Mine">
+  <svg class="site-icon icon-mine" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+</span>
 
-    <section>
-      <h2>Recent Links <span class="header-all-link">(<a href="./links.html">ALL</a>)</span></h2>
-      <ul class="book-list">
-        <li class="book-item">
-          <div class="book-header-row">
-            <div class="book-header-left">
-              <span class="category-badge" title="Category: AI" aria-label="Category: AI"><svg class="category-icon icon-ai" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg></span>
-
-              <h3 class="book-title"><a href="./links.html">Lorem Ipsum Dolor Sit Amet *</a></h3>
-            </div>
-            <div class="book-header-right">
-              <span class="book-author">AI</span>
-              <time datetime="2026-09">Sep 2026</time>
-            </div>
+            </span>
+            <h2 class="post-title"><a href="./posts/photo-lakeshore.html">Chicago Lakefront Sunrise Study</a></h2>
           </div>
-          <p class="book-notes">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </li>
-        <li class="book-item">
-          <div class="book-header-row">
-            <div class="book-header-left">
-              <span class="category-badge" title="Category: AI" aria-label="Category: AI"><svg class="category-icon icon-ai" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg></span>
-
-              <h3 class="book-title"><a href="./links.html">Consectetur Adipiscing Elit</a></h3>
-            </div>
-            <div class="book-header-right">
-              <span class="book-author">AI</span>
-              <time datetime="2026-08">Aug 2026</time>
-            </div>
+          <div class="post-header-right">
+            <span class="featured-tag">FEATURED</span>
+            <time datetime="2026-10-04">OCT 26</time>
           </div>
-          <p class="book-notes">
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-        </li>
-      </ul>
-    </section>
+        </div>
+        <p class="post-teaser">"Sunrise chicago July 11, 2022"</p>
+      </div>
+    </article>
   </div>
+</section>
 
-  <!-- Sidebar Column: Recent Stream -->
-  <div class="sidebar-column">
-    <section>
-      <h2>Recent Stream <span class="header-all-link">(<a href="./posts.html">ALL</a>)</span></h2>
-    </section>
-  </div>
-</div>
     </main>
 
     <footer class="site-footer" role="contentinfo">
       <nav class="footer-nav" aria-label="Footer Navigation">
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./posts.html">Posts</a>
-        <a href="./ideas.html">Ideas</a>
-        <a href="./ai.html">AI</a>
-        <a href="./links.html">Links</a>
-        <a href="./photos.html">Photos</a>
-        <a href="./apps.html">Apps</a>
-        <a href="./about-this-site.html">About Site</a>
-        <a href="./prompt-history.html">Dev Prompts</a>
-        <a href="./contact.html">Contact</a>
-        <a href="https://photos.app.goo.gl/yGTTSd3hnw1pqCPo8" target="_blank" rel="noopener">Google Photos <span class="sr-only">(opens external photo album in new tab)</span></a>
+          <a href="./index.html">Home</a>
+          <a href="./about.html">About</a>
       </nav>
-      <div class="footer-bottom">
+      <div class="footer-controls">
         <div class="site-controls" role="group" aria-label="Display and accessibility preferences">
           <label for="theme-toggle" class="control-btn" title="Toggle theme (Light / Dark)" aria-label="Toggle theme (Light / Dark)">
             <svg class="control-icon icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -150,7 +89,7 @@
             </svg>
             <span class="sr-only">Toggle dark and light color theme</span>
           </label>
-          <label for="contrast-toggle" class="control-btn" title="Toggle high-contrast low-complexity mode" aria-label="Toggle high-contrast low-complexity mode">
+          <label for="contrast-toggle" class="control-btn" title="Toggle high-contrast mode" aria-label="Toggle high-contrast mode">
             <svg class="control-icon icon-contrast" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="10"></circle>
               <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"></path>

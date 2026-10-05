@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}404 &mdash; Page Not Found &mdash; {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<div class="error-page-container">
+  <div class="error-badge">404</div>
+  <h1 class="error-title">Out of Lane: Page Not Found</h1>
+  <p class="error-message">
+    The page or route you were looking for doesn't exist, has moved, or is currently in draft.
+  </p>
+  <div class="error-actions">
+    <a href="{{ SITEURL }}/index.html" class="error-home-btn">&larr; Return to Home</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,143 +1,82 @@
 {% extends "base.html" %}
-{% from "category_icon.html" import category_icon %}
+{% from "category_icon.html" import article_icons, type_icon, provenance_icon %}
 
 {% block content %}
-<div class="intro-blurb">
-  <p>
-    Welcome. I'm Jim Collinsworth &mdash; retired after 50 years with software and clients, exploring software, data, tai chi, classical guitar, piano, woodworking, and AI. <a href="{{ SITEURL }}/about.html" class="about-arrow" title="About Jim" aria-label="About Jim">&rarr;</a>
-  </p>
-</div>
-
-{% set standard_articles = articles|rejectattr('type', 'equalto', 'IDEA')|list %}
-{% set featured_matches = standard_articles|selectattr('featured', 'defined')|selectattr('featured')|list %}
-{% if featured_matches %}
-  {% set featured = featured_matches[0] %}
-{% elif standard_articles %}
-  {% set featured = (standard_articles|selectattr('slug', 'equalto', 'sample-photo-post')|list)[0] or standard_articles[0] %}
-{% else %}
-  {% set featured = none %}
-{% endif %}
-{% if featured %}
-  {% set stream_articles = standard_articles|rejectattr('slug', 'equalto', featured.slug)|list %}
-{% else %}
-  {% set stream_articles = [] %}
-{% endif %}
-
-<div class="desktop-two-col">
-  <!-- Main Column: Featured Long-form & Photo Spotlight -->
-  <div class="main-column">
-    <section>
-      <h2>Featured Post</h2>
-      {% if featured %}
-      <article class="post-item featured">
+{% if featured_items %}
+<section class="featured-section" aria-label="Featured content">
+  <div class="featured-grid">
+    {% for item in featured_items %}
+    <article class="featured-item {% if item.photo_url %}featured-photo-item{% endif %}">
+      {% if item.photo_url %}
+      <div class="featured-photo-wrapper">
+        <a href="{{ SITEURL }}/{{ item.url }}" title="{{ item.title }}">
+          <img src="{{ SITEURL }}/{{ item.photo_url }}" alt="{{ item.title }}" loading="lazy" class="featured-img">
+        </a>
+      </div>
+      {% endif %}
+      <div class="featured-content">
         <div class="post-header-row">
           <div class="post-header-left">
-            {% if featured.category %}
-            {{ category_icon(featured.category, featured.author) }}
-            {% endif %}
-            <h3 class="post-title"><a href="{{ SITEURL }}/{{ featured.url }}">{{ featured.title }}</a></h3>
+            <span class="article-lead-icons">
+              {% if item.template in ['project', 'app'] %}
+                {{ type_icon('project') }}
+              {% endif %}
+              {% if item.provenance %}
+                {{ provenance_icon(item.provenance, item.author) }}
+              {% else %}
+                {{ type_icon(item.template or 'post') }}
+              {% endif %}
+            </span>
+            <h2 class="post-title"><a href="{{ SITEURL }}/{{ item.url }}">{{ item.title }}</a></h2>
           </div>
           <div class="post-header-right">
-            {% if featured.type %}
-            <span class="post-type">{{ featured.type|upper }}</span>
+            <span class="featured-tag">FEATURED</span>
+            {% if item.date %}
+            <time datetime="{{ item.date.strftime('%Y-%m-%d') }}">{{ item.date.strftime('%b %y')|upper }}</time>
             {% endif %}
-            <time datetime="{{ featured.date.strftime('%Y-%m-%d') }}">{{ featured.date.strftime('%b %y') }}</time>
           </div>
         </div>
-        <div class="post-desc">
-          {% if featured.summary %}
-          <p class="post-teaser">
-            {{ featured.summary|striptags }}
-          </p>
-          {% endif %}
-        </div>
-      </article>
-      {% endif %}
-    </section>
-
-    <section>
-      <h2>Photo Spotlight <span class="header-all-link">(<a href="{{ SITEURL }}/photos.html">ALL</a>)</span></h2>
-      <div class="photo-stream">
-        <figure>
-          <a href="{{ SITEURL }}/images/sky-lakefront.jpg" class="photo-link" title="Click to view full screen">
-            <img src="{{ SITEURL }}/images/sky-lakefront.jpg" alt="Lake Michigan horizon study" loading="lazy">
-          </a>
-          <figcaption>Lake Michigan horizon &mdash; Chicago lakefront morning study</figcaption>
-        </figure>
+        {% if item.summary or item.caption %}
+        <p class="post-teaser">{{ (item.summary or item.caption)|striptags }}</p>
+        {% endif %}
       </div>
-    </section>
-
-    <section>
-      <h2>Recent Links <span class="header-all-link">(<a href="{{ SITEURL }}/links.html">ALL</a>)</span></h2>
-      <ul class="book-list">
-        <li class="book-item">
-          <div class="book-header-row">
-            <div class="book-header-left">
-              {{ category_icon('AI') }}
-              <h3 class="book-title"><a href="{{ SITEURL }}/links.html">Lorem Ipsum Dolor Sit Amet *</a></h3>
-            </div>
-            <div class="book-header-right">
-              <span class="book-author">AI</span>
-              <time datetime="2026-09">Sep 2026</time>
-            </div>
-          </div>
-          <p class="book-notes">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </li>
-        <li class="book-item">
-          <div class="book-header-row">
-            <div class="book-header-left">
-              {{ category_icon('AI') }}
-              <h3 class="book-title"><a href="{{ SITEURL }}/links.html">Consectetur Adipiscing Elit</a></h3>
-            </div>
-            <div class="book-header-right">
-              <span class="book-author">AI</span>
-              <time datetime="2026-08">Aug 2026</time>
-            </div>
-          </div>
-          <p class="book-notes">
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-        </li>
-      </ul>
-    </section>
+    </article>
+    {% endfor %}
   </div>
+</section>
+{% endif %}
 
-  <!-- Sidebar Column: Recent Stream -->
-  <div class="sidebar-column">
-    <section>
-      <h2>Recent Stream <span class="header-all-link">(<a href="{{ SITEURL }}/posts.html">ALL</a>)</span></h2>
-      {% if stream_articles %}
-      <ul class="post-list">
-        {% for article in stream_articles[:3] %}
-        <li class="post-item">
-          <div class="post-header-row">
-            <div class="post-header-left">
-              {% if article.category %}
-              {{ category_icon(article.category, article.author) }}
-              {% endif %}
-              <h3 class="post-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
-            </div>
-            <div class="post-header-right">
-              {% if article.type %}
-              <span class="post-type">{{ article.type|upper }}</span>
-              {% endif %}
-              <time datetime="{{ article.date.strftime('%Y-%m-%d') }}">{{ article.date.strftime('%b %y') }}</time>
-            </div>
-          </div>
-          {% if article.summary %}
-          <div class="post-desc">
-            <p class="post-teaser">
-              {{ article.summary|striptags }}
-            </p>
-          </div>
+{% set stream_articles = articles|rejectattr('slug', 'in', featured_slugs or [])|list %}
+{% if stream_articles %}
+<div class="posts-container responsive-columns">
+  <ul class="post-list">
+    {% for article in stream_articles %}
+    <li class="post-item">
+      <div class="post-header-row">
+        <div class="post-header-left">
+          {{ article_icons(article) }}
+          <h2 class="post-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+        </div>
+        <div class="post-header-right">
+          {% set t = article.template or article.type %}
+          {% if t and t|lower != 'post' %}
+          <span class="post-type">{{ TYPE_METADATA.get(t|lower, {}).get('code', t|upper) }}</span>
           {% endif %}
-        </li>
-        {% endfor %}
-      </ul>
+          <time datetime="{{ article.date.strftime('%Y-%m-%d') }}">{{ article.date.strftime('%b %y')|upper }}</time>
+        </div>
+      </div>
+      {% if article.summary %}
+      <p class="post-teaser">
+        {{ article.summary|striptags }}
+      </p>
       {% endif %}
-    </section>
-  </div>
+    </li>
+    {% endfor %}
+  </ul>
 </div>
+{% elif not featured_items %}
+<div class="empty-posts-state">
+  <p class="empty-notice"><em>[No posts published yet.]</em></p>
+</div>
+{% endif %}
 {% endblock %}

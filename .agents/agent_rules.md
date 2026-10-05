@@ -13,6 +13,7 @@ This document outlines the operational principles, technical constraints, design
 > 3. `ROADMAP.md` – Long-term discussion of features, brainstorming, creative ideas, and future possibilities.
 > 4. `JOURNAL.md` – Chronological project log recording milestones, technical decisions, and changes.
 > 5. `AGENTS.md` (and `.agents/agent_rules.md`) – Operational principles, technical constraints, authoring boundaries, and small-team workflow rules.
+> 6. `TESTING.md` – Comprehensive test strategy, test suites, execution commands, and browser verification procedures.
 >
 > **NO other system design, architecture, walkthrough, or meta documents may be created anywhere in this repository or workspace without first explicitly proposing them to Jim and receiving approval.**
 
@@ -24,9 +25,11 @@ This document outlines the operational principles, technical constraints, design
 > **Content Belongs Exclusively to Jim**:
 > - Everything in `content/` (`content/posts/`, `content/pages/`) is authored exclusively by Jim.
 > - **Zero AI Content in `content/`**: No file inside `content/` contains AI-generated text, AI drafts, or AI summaries.
+> - **Mandatory Obvious Placeholder Rule**: When structural scaffolding or missing copy is required, the agent must **ALWAYS use obviously placeholder text** (e.g. `[Placeholder summary]`, `[Lane notes in progress]`) instead of fabricating or generating simulated editorial content, unless explicitly instructed by Jim.
 > - The agent must **NEVER draft content documents, essays, articles, posts, or personal notes** for Jim.
 > - The agent must **NEVER create new content files** on its own initiative.
 > - The agent's role is strictly technical stewardship: maintaining clean HTML/CSS infrastructure, ensuring responsive layouts, verifying link integrity, managing assets, and maintaining governance documents.
+
 
 ---
 

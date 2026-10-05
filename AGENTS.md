@@ -13,6 +13,7 @@ This document outlines the strict operational principles, technical constraints,
 > 3. `ROADMAP.md` – Long-term vision, feature backlog, brainstorming, creative ideas, and technical proposals.
 > 4. `JOURNAL.md` – Chronological project log recording milestones, architectural decision records (ADRs), and technical changes.
 > 5. `AGENTS.md` (and `.agents/agent_rules.md`) – Operational principles, technical constraints, authoring boundaries, and workflow rules.
+> 6. `TESTING.md` – Comprehensive test strategy, test suites, execution commands, and browser verification procedures.
 >
 > **NO other system design, architecture, walkthrough, or meta documents may be created anywhere in this repository or workspace without first explicitly proposing them to the user and receiving approval.**
 
@@ -24,8 +25,10 @@ This document outlines the strict operational principles, technical constraints,
 > **Source Materials Belong Exclusively to the Project Owner**:
 > - Domain data, business rules, core documentation, and proprietary content are owned strictly by the project author.
 > - **Zero Unauthorized Content Generation**: The agent must **NEVER draft brand new articles, opinionated business copy, or core domain assets** without explicit instruction.
+> - **Mandatory Obvious Placeholder Rule**: When structural scaffolding or missing copy is required, the agent must **ALWAYS use obviously placeholder text** (e.g. `[Placeholder summary]`, `[Lane notes in progress]`) instead of fabricating or generating simulated editorial content, unless explicitly instructed by the user.
 > - The agent must **NEVER create new primary content or domain files** on its own initiative.
 > - The agent's role is strictly technical stewardship: maintaining clean code infrastructure, optimizing performance, ensuring accessibility, managing build pipelines, maintaining unit test suites, and keeping governance documents up to date.
+
 
 ---
 
