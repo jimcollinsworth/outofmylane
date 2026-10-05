@@ -72,3 +72,24 @@ Chronological record of milestones, architectural decisions, user steering, and 
 6. **Automated Verification**: Added `test_lanes_strictly_from_content` to `tests/test_pelican_e2e.py` verifying that `output/lanes/` contains exactly 1 lane (`taichi.html`). All 8 tests pass in 0.22s.
 7. **Version Bump**: Incremented version to `0.8.03` in `pyproject.toml` and `pelicanconf.py`.
 
+---
+
+## 2026-10-05 — GitHub Pages Automated Deployment Pipeline (v0.8.04)
+
+> [!NOTE] User Instructions & Guidance:
+> - *"Lets push it all now to my github io site"*
+> - Deployment preference: Set up GitHub Actions workflow to automatically build and deploy the site to GitHub Pages on push to `main`. Target URL: `https://jimcollinsworth.github.io`.
+
+### Problem & Diagnosis
+- The repository lacked an automated CI/CD deployment pipeline to build Pelican and publish artifacts to GitHub Pages upon pushing to `main`.
+- `publishconf.py` had an empty `SITEURL` setting.
+
+### Root Cause & Technical Analysis
+- Without `.github/workflows/deploy.yml` configuring GitHub Pages deployment via `actions/deploy-pages@v4`, pushes to `main` do not automatically publish live static HTML to GitHub Pages.
+
+### Solution & Standard Procedure
+1. **GitHub Pages Actions Workflow**: Created `.github/workflows/deploy.yml` with `actions/checkout@v4`, `astral-sh/setup-uv@v5`, `uv run pelican content -s publishconf.py -o output -d`, `actions/upload-pages-artifact@v3`, and `actions/deploy-pages@v4`.
+2. **Production Site URL Configuration**: Set `SITEURL = "https://jimcollinsworth.github.io"` and `RELATIVE_URLS = False` in `publishconf.py`.
+3. **Version Synchronization**: Incremented project version to `0.8.04` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`.
+
+

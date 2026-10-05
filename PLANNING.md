@@ -48,15 +48,21 @@ Active backlog and task tracking for `outofmylane`.
   - [x] Responsive inspection across mobile and desktop viewports
   - [x] Capture visual evidence for user walkthrough
 
+## Active Sprint: GitHub Pages Automated Deployment (v0.8.04)
+
+- [x] Configure production `publishconf.py` (`SITEURL = "https://jimcollinsworth.github.io"`)
+- [x] Create GitHub Actions automated deployment workflow (`.github/workflows/deploy.yml`)
+- [x] Version bump to `0.8.04` across manifests and configs
+- [x] Update governance docs (`PLANNING.md`, `JOURNAL.md`)
+- [ ] Push to `main` branch to trigger GitHub Pages build and deployment
+
 ---
 
 ## Near-Term Backlog
 
 - [ ] Authoring initial content notes for active Lanes: `taichi.md`, `ai.md`, `music.md`
-- [ ] Testing 
-- [ ] deployment to github (no tracking) or to godaddy to enable tracking without javascript
-- [ ] minimal javascript - or maybe toggle/debug - add google tracking and more
-- [ ] chinese support (i want to generate some links/interest, can post tiktok/rednote)
+- [ ] Minimal javascript - or toggle/debug - optional tracking and analytics
+- [ ] Chinese support (post variants / cross-platform links for TikTok/RedNote)
 - [ ] Implement client-side audio player for MIDI/MP3 audio posts
 - [ ] Add RSS / Atom feed generation for published posts once content volume grows
-- [ ] Implement search index (e.g. Pagefind or Stork zero-overhead search)
+- [ ] Implement static search index (e.g. Pagefind or Stork zero-overhead search)
