@@ -2,7 +2,7 @@
 pelicanconf.py — Pelican Static Site Generator Configuration
 for out of my lane (outofmylane)
 Author: Jim Collinsworth & LLM-Gemini3.8
-Version: 0.8.04
+Version: 0.8.04.01
 """
 
 from pathlib import Path
