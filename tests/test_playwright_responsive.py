@@ -34,6 +34,8 @@ def browser_context():
     [
         "index.html",
         "about.html",
+        "ai-metronome.html",
+        "sensor-net.html",
         "lanes.html",
         "tags.html",
     ],

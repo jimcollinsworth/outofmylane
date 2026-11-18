@@ -47,10 +47,12 @@
 {% endif %}
 
 {% set stream_articles = articles|rejectattr('slug', 'in', featured_slugs or [])|list %}
-{% if stream_articles %}
+{% set stream_pages = pages|rejectattr('slug', 'in', (featured_slugs or [])|list + ['about', 'home'])|list if pages is defined else [] %}
+{% set stream_items = stream_articles + stream_pages %}
+{% if stream_items %}
 <div class="posts-container responsive-columns">
   <ul class="post-list">
-    {% for article in stream_articles %}
+    {% for article in stream_items %}
     <li class="post-item">
       <div class="post-header-row">
         <div class="post-header-left">
@@ -58,11 +60,13 @@
           <h2 class="post-title"><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
         </div>
         <div class="post-header-right">
-          {% set t = article.template or article.type %}
-          {% if t and t|lower != 'post' %}
+          {% set t = article.type or article.template %}
+          {% if t and t|lower not in ['post', 'page'] %}
           <span class="post-type">{{ TYPE_METADATA.get(t|lower, {}).get('code', t|upper) }}</span>
           {% endif %}
+          {% if article.date %}
           <time datetime="{{ article.date.strftime('%Y-%m-%d') }}">{{ article.date.strftime('%b %y')|upper }}</time>
+          {% endif %}
         </div>
       </div>
       {% if article.summary %}

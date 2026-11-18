@@ -92,4 +92,30 @@ Chronological record of milestones, architectural decisions, user steering, and 
 2. **Production Site URL Configuration**: Set `SITEURL = "https://jimcollinsworth.github.io"` and `RELATIVE_URLS = False` in `publishconf.py`.
 3. **Version Synchronization**: Incremented project version to `0.8.04` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`.
 
+---
+
+## 2026-11-17 — Add AI Metronome and Sensor Net Pages & Deploy to Main (v0.8.05)
+
+> [!NOTE] User Instructions & Guidance:
+> - *"Add pages for ai-metronome.md and sensor-net.mk, merge deploy"*
+> - *"SensorNet and AI Metronome are in the projects directory and GitHub repos"*
+> - *"What's the problem? What do we know now? Can we continue and deploy?"*
+
+### Problem & Diagnosis
+1. `content/pages/` contained only `about.md`; neither `ai-metronome.md` nor `sensor-net.md` existed in the repository.
+2. `themes/lakefront/templates/index.html` iterated only over `articles`, so published standalone pages in `content/pages/` other than `about.md` were not listed on the home page.
+3. `themes/lakefront/templates/category_icon.html` accessed `article.tags` unconditionally inside `article_icons()`, which fails on Pelican `Page` objects that lack a `tags` attribute unless guarded.
+4. `sensor-net` had no local folder in `d:\projects`, requiring inspection of the GitHub repository `jimcollinsworth/sensor-net`.
+
+### Root Cause & Technical Analysis
+- Pelican stores `content/pages/*.md` items in `pages` rather than `articles` and omits the `tags` attribute from `Page` instances by default.
+- The `feature/update-pelican-skills` branch had not yet been merged into `main` to trigger `.github/workflows/deploy.yml`.
+
+### Solution & Standard Procedure
+1. **Added Project Pages**: Created `content/pages/ai-metronome.md` (from `d:\projects\ai-metronome\README.md`) and `content/pages/sensor-net.md` (from `jimcollinsworth/sensor-net`) with `status: published` and `type: project` (authored by `Jim Collinsworth, LLM-Argon`).
+2. **Updated Lakefront Templates**: Added a `tags` guard to `article_icons()` in `themes/lakefront/templates/category_icon.html` and appended non-`about`/`home`/non-featured `pages` to `stream_items` in `themes/lakefront/templates/index.html`.
+3. **Updated Tests & Version**: Added `ai-metronome.html` and `sensor-net.html` checks to `tests/test_pelican_e2e.py` and `tests/test_playwright_responsive.py`, and incremented the version to `0.8.05` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`.
+4. **Build, Verify, Merge & Push**: Built output with Pelican, executed `uv run pytest -v`, captured screenshots, merged `feature/update-pelican-skills` into `main`, and pushed `main` to `origin`.
+
+
 
