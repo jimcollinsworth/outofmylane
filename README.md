@@ -85,7 +85,10 @@ category: taichi                    # Lane slug (must match content/lanes/<slug>
 tags: mine, chicago, lakefront      # Provenance and topic tags
 author: Jim Collinsworth            # Author (e.g. Jim Collinsworth or LLM-Gemini3.8)
 status: published                   # Defaults to 'draft' if omitted
-template: photo                     # post, idea, link, photo, chat, etc.
+type: project                       # Optional content classification (e.g., project routes to root <slug>.html)
+template: photo                     # post, idea, link, photo, chat, project, wip, etc.
+url: chicago-lakefront-sky-study.html     # Optional output URL override (e.g., root-level route)
+save_as: chicago-lakefront-sky-study.html # Optional output file path override
 summary: Early morning light study over Lake Michigan.
 featured: true                      # Highlight in Lane streams
 external_url: https://example.com   # Target URL for link templates

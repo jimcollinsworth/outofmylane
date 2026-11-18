@@ -2,13 +2,14 @@
 pelicanconf.py — Pelican Static Site Generator Configuration
 for out of my lane (outofmylane)
 Author: Jim Collinsworth & LLM-Gemini3.8, LLM-Argon
-Version: 0.8.05.02
+Version: 0.8.05.03
 """
 
 from pathlib import Path
 import yaml
 import markdown
 from pelican import signals
+from pelican.contents import Article
 from pelican.urlwrappers import Category, Tag
 
 AUTHOR = 'Jim Collinsworth'
@@ -310,4 +311,18 @@ def collect_featured_items(generators):
 
 signals.all_generators_finalized.connect(collect_featured_items)
 
+
+def route_projects_to_root(content):
+    """Route any article with type: project or template: project to root {slug}.html."""
+    if isinstance(content, Article):
+        t_type = str(content.metadata.get('type', '')).strip().lower()
+        t_tmpl = str(content.metadata.get('template', '')).strip().lower()
+        if t_type == 'project' or t_tmpl == 'project':
+            if 'url' not in content.metadata:
+                content.override_url = f"{content.slug}.html"
+            if 'save_as' not in content.metadata:
+                content.override_save_as = f"{content.slug}.html"
+
+
+signals.content_object_init.connect(route_projects_to_root)
 

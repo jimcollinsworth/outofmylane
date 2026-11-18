@@ -160,5 +160,31 @@ Chronological record of milestones, architectural decisions, user steering, and 
 2. **Legacy Root Archive**: Added `root-pages` remote (`jimcollinsworth/jimcollinsworth.github.io.git`), fetched `root-pages/main`, and pushed its previous commit state to `archive/legacy-site-2026-10`.
 3. **Dual-Remote Root Deployment**: Merged `feature/update-pelican-skills` into `main`, pushed `main` to both `jimcollinsworth/outofmylane` and `jimcollinsworth/jimcollinsworth.github.io`, and disabled Project Site Pages on `jimcollinsworth/outofmylane`.
 
+---
+
+## 2026-11-18 — Root-Level Routing for Project Posts & Multi-Viewport Snapshot Verification (v0.8.05.03)
+
+> [!NOTE] User Instructions & Guidance:
+> - *"update our project repo, this is my new personal blog."*
+> - *"update the sensor-net and ai-metronome posts so they appear at the root, i assume we can override with meta data? all projects will at root level and these are projects, not posts, not pages i guess. do the updates, also need to see a snapshot series of the site (phone, tablet, desktop.., portrait/landscape)."*
+
+### Problem & Diagnosis
+1. The local working copy was behind `origin/main` at commit `f0a6073`, while `origin/main` had advanced to `0938a2b` (`v0.8.05.02`) containing `content/posts/ai-metronome.md`, `content/posts/sensor-net.md`, `themes/lakefront/templates/wip.html`, `tests/test_playwright_responsive.py`, and `tools/screenshots.py`.
+2. `pelicanconf.py` routed all `content/posts/*.md` articles to `posts/{slug}.html` via `ARTICLE_URL` and `ARTICLE_SAVE_AS`, so `ai-metronome` and `sensor-net` were emitted under `output/posts/` instead of the root directory.
+3. Neither project metadata (`url`, `save_as`, `type: project`) nor a signal hook existed to route `project` entries from `content/posts/` to root `{slug}.html`, and `themes/lakefront/templates/project.html` did not exist.
+4. `tests/test_pelican_e2e.py` and `tests/test_playwright_responsive.py` asserted `posts/ai-metronome.html` and `posts/sensor-net.html` and `test_no_unauthored_or_corrupt_pages()` only checked `content/pages/*.md` for root HTML files.
+
+### Root Cause & Technical Analysis
+- Pelican applies `ARTICLE_URL = 'posts/{slug}.html'` and `ARTICLE_SAVE_AS = 'posts/{slug}.html'` globally to files in `ARTICLE_PATHS = ['posts']` unless overridden per article via `url` and `save_as` frontmatter keys or `override_url` / `override_save_as` during `signals.content_object_init`.
+- Setting `type: project` without a `project.html` template risks `TemplateNotFound` if an author sets `template: project` directly instead of `template: wip`.
+
+### Solution & Standard Procedure
+1. **Sync & Branch**: Fast-forwarded `main` from `f0a6073` to `0938a2b` via `git pull --ff-only origin main` and created working branch `feature/project-root-urls`.
+2. **Project Frontmatter Overrides**: Added `type: project`, `url: <slug>.html`, and `save_as: <slug>.html` (keeping `template: wip` and `status: published`) to `content/posts/ai-metronome.md` and `content/posts/sensor-net.md`.
+3. **Automatic Root Project Routing & Template**: Added `route_projects_to_root` connected to `signals.content_object_init` in `pelicanconf.py` to default `override_url` and `override_save_as` to `{slug}.html` for any `Article` with `type: project` or `template: project`. Created `themes/lakefront/templates/project.html` (attributed to `Jim Collinsworth & LLM-Gemini3.8, LLM-Argon`).
+4. **Tests & Documentation**: Updated `tests/test_pelican_e2e.py` (root file assertions, negative `output/posts/` checks, and `content/posts/*.md` stem inclusion in `test_no_unauthored_or_corrupt_pages`) and `tests/test_playwright_responsive.py`. Documented `type`, `url`, and `save_as` in `README.md` and incremented version to `0.8.05.03` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`.
+5. **Build & Verification**: Built static output via `uv run pelican content -s pelicanconf.py -o output -d` (`0.19s`, 3 articles, 1 page), verified all `29` tests pass via `uv run pytest -v` (`8.98s`), and captured 24 screenshots via `tools/screenshots.py` across 8 viewports (`phone`, `tablet`, `laptop`, `desktop_tv` in `portrait` and `landscape`) for `index.html`, `ai-metronome.html`, and `sensor-net.html`.
+
+
 
 
