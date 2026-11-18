@@ -75,6 +75,12 @@ Active backlog and task tracking for `outofmylane`.
 - [x] Bump version to `0.8.05.01` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`
 - [x] Run Pelican build (`0.07s`), `pytest` (`29 passed`), capture root-artifact screenshots and `walkthrough.md`, and commit on `feature/update-pelican-skills`
 
+## Active Sprint: Root Domain Deployment (`jimcollinsworth.github.io`, v0.8.05.02)
+
+- [x] Set `RELATIVE_URLS = True` in `publishconf.py` so links and CSS resolve on `jimcollinsworth.github.io` and `jimcollinsworth.com`
+- [x] Bump version to `0.8.05.02` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`
+- [ ] Rebuild Pelican, run `pytest`, merge `feature/update-pelican-skills` into `main`, archive legacy `jimcollinsworth.github.io` `main`, push `main` to both repos, and disable Project Pages on `outofmylane`
+
 ---
 
 ## Near-Term Backlog
