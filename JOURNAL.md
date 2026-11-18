@@ -117,5 +117,48 @@ Chronological record of milestones, architectural decisions, user steering, and 
 3. **Updated Tests & Version**: Added `ai-metronome.html` and `sensor-net.html` checks to `tests/test_pelican_e2e.py` and `tests/test_playwright_responsive.py`, and incremented the version to `0.8.05` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`.
 4. **Build, Verify, Merge & Push**: Built output with Pelican, executed `uv run pytest -v`, captured screenshots, merged `feature/update-pelican-skills` into `main`, and pushed `main` to `origin`.
 
+---
+
+## 2026-11-17 — Relocate Project Posts to `content/posts/` with `wip` Template & Fix Screenshot Previews (v0.8.05.01)
+
+> [!NOTE] User Instructions & Guidance:
+> - *"Move the 2 new pages into posts, mark as wip template, fix visual verification,  no previews"*
+
+### Problem & Diagnosis
+1. `ai-metronome.md` and `sensor-net.md` were placed in `content/pages/` (`/<slug>.html`) instead of `content/posts/` (`/posts/<slug>.html`).
+2. Lakefront lacked a `wip.html` template and `wip` clock icon inside `category_icon.html` for articles specifying `template: wip`.
+3. Visual verification images in the v0.8.05 response used nested subdirectories and Windows backslashes (`C:\...`), causing preview embeds not to render in the chat UI.
+
+### Root Cause & Technical Analysis
+- Pelican routes files under `content/posts/` to `posts/{slug}.html` and selects the template matching frontmatter `template: wip` (`themes/lakefront/templates/wip.html`).
+- Markdown image rendering requires forward-slash paths pointing to files located directly in the artifact directory (`<appDataDir>/brain/<conversation-id>/`).
+
+### Solution & Standard Procedure
+1. **Moved Content to Posts**: Removed `content/pages/ai-metronome.md` and `content/pages/sensor-net.md`, created `content/posts/ai-metronome.md` and `content/posts/sensor-net.md` with `template: wip`, `status: published`, and removed duplicate body H1 titles.
+2. **Added `wip` Template & Icon**: Created `themes/lakefront/templates/wip.html`, added the `wip` clock SVG icon and `article_icons()` guard in `themes/lakefront/templates/category_icon.html`, and restored `stream_articles` iteration in `themes/lakefront/templates/index.html`.
+3. **Updated Tests & Version**: Updated `tests/test_pelican_e2e.py` and `tests/test_playwright_responsive.py` to check `posts/ai-metronome.html` and `posts/sensor-net.html`, and incremented version to `0.8.05.01`.
+4. **Fixed Visual Verification**: Rebuilt output, executed `pytest`, copied `.png` screenshots into the root artifact directory, created `walkthrough.md`, and committed changes locally on `feature/update-pelican-skills`.
+
+---
+
+## 2026-11-17 — Deploy `outofmylane` to Root Repository `jimcollinsworth.github.io` (v0.8.05.02)
+
+> [!NOTE] User Instructions & Guidance:
+> - *"Why is thd new site deployed to jimcollinsworth.github.io/outofmylane,  but there is old content at root"*
+> - *"New site should be at root"*
+
+### Problem & Diagnosis
+1. GitHub Pages serves the root site (`https://jimcollinsworth.github.io/` / `https://jimcollinsworth.com/`) from `jimcollinsworth/jimcollinsworth.github.io`, while `jimcollinsworth/outofmylane` deploys as a Project Site at `/outofmylane/`.
+2. `publishconf.py` set `RELATIVE_URLS = False` with `SITEURL = "https://jimcollinsworth.github.io"`, while `jimcollinsworth.github.io` has custom domain `jimcollinsworth.com` configured (`cname: "jimcollinsworth.com"`).
+
+### Root Cause & Technical Analysis
+- `origin` in `d:\projects\outofmylane` pointed only to `jimcollinsworth/outofmylane.git`.
+- Pushing `main` to `jimcollinsworth/outofmylane` triggered GitHub Pages at `/outofmylane/` without updating `jimcollinsworth/jimcollinsworth.github.io`.
+
+### Solution & Standard Procedure
+1. **Relative Production URLs**: Set `RELATIVE_URLS = True` in `publishconf.py` and bumped version to `0.8.05.02` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`.
+2. **Legacy Root Archive**: Added `root-pages` remote (`jimcollinsworth/jimcollinsworth.github.io.git`), fetched `root-pages/main`, and pushed its previous commit state to `archive/legacy-site-2026-10`.
+3. **Dual-Remote Root Deployment**: Merged `feature/update-pelican-skills` into `main`, pushed `main` to both `jimcollinsworth/outofmylane` and `jimcollinsworth/jimcollinsworth.github.io`, and disabled Project Site Pages on `jimcollinsworth/outofmylane`.
+
 
 

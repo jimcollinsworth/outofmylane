@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sensor Net &mdash; Out of My Lane</title>
-  <link rel="stylesheet" href="./theme/css/style.css">
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="./favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../theme/css/style.css">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../favicon.ico" type="image/x-icon">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -18,7 +18,7 @@
     <header class="site-header" role="banner">
       <div class="header-main-row">
         <div class="author-brand">
-          <a href="./index.html" class="author-name">Jim Collinsworth</a>
+          <a href="../index.html" class="author-name">Jim Collinsworth</a>
         </div>
         <div class="site-title-badge">
           <span class="site-title-text">Out of My Lane</span>
@@ -26,16 +26,42 @@
       </div>
       <div class="header-nav-row">
         <nav class="site-nav" aria-label="Main Navigation">
-            <a href="./index.html">Home</a>
-            <a href="./about.html">About</a>
+            <a href="../index.html">Home</a>
+            <a href="../about.html">About</a>
         </nav>
       </div>
     </header>
 
     <main id="main-content" tabindex="-1">
-<article class="page-body">
-  <h1>Sensor Net</h1>
-<p><code>sensor-net</code> is a sensor network architecture for Body Area Network (BAN) and spatial telemetry applications targeting Seeed Studio XIAO nRF52840 Sense (CircuitPython) and ESP32-C6 (ESP-IDF v6.0.2) microcontrollers.</p>
+<article class="post-body wip-body">
+  <header class="post-header-full">
+    <div class="post-header-row">
+      <div class="post-header-left">
+        <a href="../index.html" class="post-back-arrow" title="Back to Home" aria-label="Back to Home">&larr;</a>
+        <span class="article-lead-icons">
+  <svg class="site-icon icon-wip" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+
+  <span class="provenance-badge dual-badge" title="Provenance: AI Assisted / Jim Collinsworth" aria-label="Provenance: AI Assisted / Jim Collinsworth">
+  <svg class="site-icon icon-ai" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M12 8V4H8"></path><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
+  <svg class="site-icon icon-mine" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+</span>
+
+</span>
+
+        <h1 class="post-title">Sensor Net</h1>
+      </div>
+      <div class="post-header-right">
+        <span class="post-type">WIP</span>
+        <time datetime="2026-11-17">NOV 26</time>
+      </div>
+    </div>
+    <div class="post-meta-sub">
+      <span class="post-author">By Jim Collinsworth, LLM-Argon</span>
+    </div>
+  </header>
+
+  <div class="post-content wip-content">
+    <p><code>sensor-net</code> is a sensor network architecture for Body Area Network (BAN) and spatial telemetry applications targeting Seeed Studio XIAO nRF52840 Sense (CircuitPython) and ESP32-C6 (ESP-IDF v6.0.2) microcontrollers.</p>
 <h2>Hardware Pin Mappings &amp; Architecture</h2>
 <ul>
 <li><strong>Battery Monitoring Network</strong>: Uses board definitions <code>board.READ_BATT_ENABLE</code> and <code>board.VBATT</code> to toggle the power gate transistor, closing the circuit after scaling the 16-bit analog stream to prevent background leakage current drain.</li>
@@ -73,13 +99,22 @@ idf.py<span class="w"> </span>menuconfig
 idf.py<span class="w"> </span>build
 idf.py<span class="w"> </span>flash
 </code></pre></div>
+  </div>
+
+  <footer class="post-footer">
+    <span class="post-tags-list">
+      <a href="../tags/ai.html" class="tag-badge">#ai</a>
+      <a href="../tags/mine.html" class="tag-badge">#mine</a>
+      <a href="../tags/hardware.html" class="tag-badge">#hardware</a>
+    </span>
+  </footer>
 </article>
     </main>
 
     <footer class="site-footer" role="contentinfo">
       <nav class="footer-nav" aria-label="Footer Navigation">
-          <a href="./index.html">Home</a>
-          <a href="./about.html">About</a>
+          <a href="../index.html">Home</a>
+          <a href="../about.html">About</a>
       </nav>
       <div class="footer-controls">
         <div class="site-controls" role="group" aria-label="Display and accessibility preferences">

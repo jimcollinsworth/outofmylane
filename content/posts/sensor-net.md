@@ -3,16 +3,12 @@ title: Sensor Net
 slug: sensor-net
 date: 2026-11-17
 modified: 2026-11-17
-category: page
 tags: ai, mine, hardware
 summary: Low-cost sensor network for Body Area Network (BAN) telemetry on Seeed Studio XIAO nRF52840 Sense and ESP32-C6 microcontrollers.
 author: Jim Collinsworth, LLM-Argon
-template: page
-type: project
+template: wip
 status: published
 ---
-
-# Sensor Net
 
 `sensor-net` is a sensor network architecture for Body Area Network (BAN) and spatial telemetry applications targeting Seeed Studio XIAO nRF52840 Sense (CircuitPython) and ESP32-C6 (ESP-IDF v6.0.2) microcontrollers.
 

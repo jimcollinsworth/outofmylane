@@ -64,7 +64,22 @@ Active backlog and task tracking for `outofmylane`.
 - [x] Update `tests/test_pelican_e2e.py` and `tests/test_playwright_responsive.py` for `ai-metronome.html` and `sensor-net.html`
 - [x] Bump version to `0.8.05` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`
 - [x] Run Pelican static build (`0.13s`), `pytest` (`29 passed`), and capture visual verification screenshots
-- [ ] Merge `feature/update-pelican-skills` to `main` and push to `origin/main`
+- [x] Merge `feature/update-pelican-skills` to `main` and push to `origin/main`
+
+## Active Sprint: Relocate Project Posts & WIP Template (v0.8.05.01)
+
+- [x] Move `ai-metronome.md` and `sensor-net.md` from `content/pages/` to `content/posts/` with `template: wip`
+- [x] Add `themes/lakefront/templates/wip.html` and `wip` clock SVG icon in `category_icon.html`
+- [x] Restore `themes/lakefront/templates/index.html` stream to `stream_articles`
+- [x] Update `tests/test_pelican_e2e.py` and `tests/test_playwright_responsive.py` for `/posts/ai-metronome.html` and `/posts/sensor-net.html`
+- [x] Bump version to `0.8.05.01` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`
+- [x] Run Pelican build (`0.07s`), `pytest` (`29 passed`), capture root-artifact screenshots and `walkthrough.md`, and commit on `feature/update-pelican-skills`
+
+## Active Sprint: Root Domain Deployment (`jimcollinsworth.github.io`, v0.8.05.02)
+
+- [x] Set `RELATIVE_URLS = True` in `publishconf.py` so links and CSS resolve on `jimcollinsworth.github.io` and `jimcollinsworth.com`
+- [x] Bump version to `0.8.05.02` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`
+- [ ] Rebuild Pelican, run `pytest`, merge `feature/update-pelican-skills` into `main`, archive legacy `jimcollinsworth.github.io` `main`, push `main` to both repos, and disable Project Pages on `outofmylane`
 
 ---
 
