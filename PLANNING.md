@@ -81,14 +81,15 @@ Active backlog and task tracking for `outofmylane`.
 - [x] Bump version to `0.8.05.02` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`
 - [ ] Rebuild Pelican, run `pytest`, merge `feature/update-pelican-skills` into `main`, archive legacy `jimcollinsworth.github.io` `main`, push `main` to both repos, and disable Project Pages on `outofmylane`
 
-## Active Sprint: Root-Level Project Routing & Multi-Viewport Snapshots (v0.8.05.03)
+## Active Sprint: Root-Level Project Routing & Multi-Viewport Snapshots (v0.8.05.03 - v0.8.05.04)
 
 - [x] Fast-forward local `main` to `origin/main` (`0938a2b`) and create branch `feature/project-root-urls`
 - [x] Add `type: project`, `url: <slug>.html`, and `save_as: <slug>.html` to `content/posts/ai-metronome.md` and `content/posts/sensor-net.md`
 - [x] Add `route_projects_to_root` (`signals.content_object_init`) in `pelicanconf.py` and create `themes/lakefront/templates/project.html`
 - [x] Update `tests/test_pelican_e2e.py` and `tests/test_playwright_responsive.py` for root-level project paths
-- [x] Bump version to `0.8.05.03` in `pyproject.toml`, `pelicanconf.py`, `README.md`, `PLANNING.md`, and `JOURNAL.md`
-- [x] Build Pelican output (`0.19s`, 3 articles, 1 page), run `pytest` (`29 passed in 8.98s`), and capture 24 responsive PNG snapshots across 8 viewports (`phone`, `tablet`, `laptop`, `desktop_tv` in portrait/landscape) for `index.html`, `ai-metronome.html`, and `sensor-net.html`
+- [x] Build Pelican output (`0.14s`, 3 articles, 1 page), run `pytest` (`29 passed in 7.27s`), and capture viewport-only (`full_page=False`) browser-framed sheets (4-up PDF/HTML sheets + 3-variation × 2-page summary PNG)
+- [x] Persist `/learn` rules and skill notes to `AGENTS.md`, `.agents/agent_rules.md`, `.agents/skills/pelican-site-manager/SKILL.md`, and `TESTING.md`
+- [x] Bump version to `0.8.05.04` in `pyproject.toml`, `uv.lock`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`, merge `feature/project-root-urls` into `main`, and push `main` to `origin`
 
 ---
 

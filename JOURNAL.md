@@ -185,6 +185,33 @@ Chronological record of milestones, architectural decisions, user steering, and 
 4. **Tests & Documentation**: Updated `tests/test_pelican_e2e.py` (root file assertions, negative `output/posts/` checks, and `content/posts/*.md` stem inclusion in `test_no_unauthored_or_corrupt_pages`) and `tests/test_playwright_responsive.py`. Documented `type`, `url`, and `save_as` in `README.md` and incremented version to `0.8.05.03` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`.
 5. **Build & Verification**: Built static output via `uv run pelican content -s pelicanconf.py -o output -d` (`0.19s`, 3 articles, 1 page), verified all `29` tests pass via `uv run pytest -v` (`8.98s`), and captured 24 screenshots via `tools/screenshots.py` across 8 viewports (`phone`, `tablet`, `laptop`, `desktop_tv` in `portrait` and `landscape`) for `index.html`, `ai-metronome.html`, and `sensor-net.html`.
 
+---
+
+## 2026-11-18 — `/learn` Visual Verification Standard, Docs Update & Release to `main` (v0.8.05.04)
+
+> [!NOTE] User Instructions & Guidance:
+> - *"wow, those were not screenshots you just rendered all the content, dumb. i need to see scrreen shots of each example page running in a browser/playwrite in various orientations and then combined onto a document maybe 4 per page."*
+> - *"ok, just 3 variations on the screen sizes/orientations, and then 2 different pages. i assume ai-metronome and sensor-net are at root now. /learn update lessons, journal, other docs, merge to main, push to origin. done for the day on this"*
+
+### Problem & Diagnosis
+1. `tools/screenshots.py` defaulted to `full_page=True`, which expanded screenshots vertically to full document scroll height, removing portrait vs. landscape viewport proportions.
+2. Embedding 24 unframed full-scroll PNGs vertically in Markdown caused the UI to render them as raw repeated page text instead of browser viewport previews.
+3. Inside flexbox browser window frames (`inline-flex` column), an unconstrained `.browser-chrome` header stretched narrow portrait `<img>` elements horizontally until `.browser-chrome` used `width: 0; min-width: 100%` and `img` used `object-fit: contain`.
+4. Running `uv run` without `--frozen` on `uv 0.6.10` downgraded `uv.lock` from `revision = 3` to `revision = 1` across package entries.
+
+### Root Cause & Technical Analysis
+- Viewport verification requires `full_page=False` with proportional scaling (`object-fit: contain`) inside a constrained browser chrome header (`width: 0; min-width: 100%`) grouped onto composite multi-up contact sheets rather than full-scroll dumps.
+- Keeping `uv.lock` aligned requires bumping only the `outofmylane` package version entry and passing `--frozen` to `uv run`.
+
+### Solution & Standard Procedure
+1. **Viewport Contact Sheets**: Captured `full_page=False` browser-framed viewport screenshots for `index.html`, `ai-metronome.html`, `sensor-net.html`, and `about.html` across 8 viewports combined 4 per page into `responsive_snapshots_4up.pdf` / `.html` and 3 variations (`390x844`, `1180x820`, `1920x1080`) × 2 pages (`index.html`, `ai-metronome.html`) into `sheet_3x2_summary.png`.
+2. **Persisted Rules & Skills (`/learn`)**:
+   - Updated `AGENTS.md` (Section 11) and `.agents/agent_rules.md` (Section 8) to require `full_page=False` browser-framed composite contact sheets across 3 viewport variations × 2 pages.
+   - Updated `.agents/skills/pelican-site-manager/SKILL.md` (Section 5 item 9 for root-level project routing from `content/posts/`, Section 6 item 4 for viewport-only composite checks).
+   - Updated `TESTING.md` (Section 6) with gotchas for `full_page=True` distortion, `content/posts/*.md` root allowlist checks, and `uv.lock` `--frozen` usage.
+3. **Version, Build, Merge & Push**: Incremented version to `0.8.05.04` in `pyproject.toml`, `uv.lock`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`; verified `pelican` build and `29` passing `pytest` checks; committed on `feature/project-root-urls`; merged `--no-ff` into `main`; and pushed `main` to `origin`.
+
+
 
 
 
