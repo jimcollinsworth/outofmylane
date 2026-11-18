@@ -47,12 +47,13 @@ Author: Jim Collinsworth & LLM-Gemini3.8
 {% endmacro %}
 
 {% macro article_icons(article) %}
+{% set tag_names = article.tags|map(attribute='name')|join(', ') if article.tags is defined and article.tags else '' %}
 <span class="article-lead-icons">
   {% if article.template in ['project', 'app'] or article.type in ['project', 'app'] %}
   {{ type_icon('project') }}
   {% endif %}
-  {{ provenance_icon(article.provenance or article.tags|map(attribute='name')|join(', '), article.author) }}
-  {% if not (article.template in ['project', 'app'] or article.type in ['project', 'app']) and not (article.provenance or 'mine' in article.tags|map(attribute='name')|join(',')) %}
+  {{ provenance_icon(article.provenance or tag_names, article.author) }}
+  {% if not (article.template in ['project', 'app'] or article.type in ['project', 'app']) and not (article.provenance or 'mine' in tag_names) %}
   {{ type_icon(article.template or article.type or 'post') }}
   {% endif %}
 </span>

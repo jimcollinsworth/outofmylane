@@ -54,7 +54,17 @@ Active backlog and task tracking for `outofmylane`.
 - [x] Create GitHub Actions automated deployment workflow (`.github/workflows/deploy.yml`)
 - [x] Version bump to `0.8.04` across manifests and configs
 - [x] Update governance docs (`PLANNING.md`, `JOURNAL.md`)
-- [ ] Push to `main` branch to trigger GitHub Pages build and deployment
+- [x] Push to `main` branch to trigger GitHub Pages build and deployment (merged in v0.8.05)
+
+## Active Sprint: Project Pages & Main Deployment (v0.8.05)
+
+- [x] Create standalone published page `content/pages/ai-metronome.md` sourced from `d:\projects\ai-metronome\README.md`
+- [x] Create standalone published page `content/pages/sensor-net.md` sourced from `jimcollinsworth/sensor-net`
+- [x] Update `themes/lakefront/templates/index.html` and `themes/lakefront/templates/category_icon.html` to list published standalone pages on the index stream
+- [x] Update `tests/test_pelican_e2e.py` and `tests/test_playwright_responsive.py` for `ai-metronome.html` and `sensor-net.html`
+- [x] Bump version to `0.8.05` in `pyproject.toml`, `pelicanconf.py`, `PLANNING.md`, and `JOURNAL.md`
+- [x] Run Pelican static build (`0.13s`), `pytest` (`29 passed`), and capture visual verification screenshots
+- [ ] Merge `feature/update-pelican-skills` to `main` and push to `origin/main`
 
 ---
 
@@ -62,7 +72,6 @@ Active backlog and task tracking for `outofmylane`.
 
 - [ ] Authoring initial content notes for active Lanes: `taichi.md`, `ai.md`, `music.md`
 - [ ] Minimal javascript - or toggle/debug - optional tracking and analytics
-- [ ] Chinese support (post variants / cross-platform links for TikTok/RedNote)
 - [ ] Implement client-side audio player for MIDI/MP3 audio posts
 - [ ] Add RSS / Atom feed generation for published posts once content volume grows
 - [ ] Implement static search index (e.g. Pagefind or Stork zero-overhead search)
