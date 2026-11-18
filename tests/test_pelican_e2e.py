@@ -15,8 +15,10 @@ def test_core_pages_exist():
     """Verify essential pages are generated in output/."""
     assert (OUTPUT_DIR / "index.html").exists(), "index.html must exist"
     assert (OUTPUT_DIR / "about.html").exists(), "about.html must exist"
-    assert (OUTPUT_DIR / "posts" / "ai-metronome.html").exists(), "posts/ai-metronome.html must exist"
-    assert (OUTPUT_DIR / "posts" / "sensor-net.html").exists(), "posts/sensor-net.html must exist"
+    assert (OUTPUT_DIR / "ai-metronome.html").exists(), "ai-metronome.html must exist at root"
+    assert (OUTPUT_DIR / "sensor-net.html").exists(), "sensor-net.html must exist at root"
+    assert not (OUTPUT_DIR / "posts" / "ai-metronome.html").exists(), "posts/ai-metronome.html must not exist"
+    assert not (OUTPUT_DIR / "posts" / "sensor-net.html").exists(), "posts/sensor-net.html must not exist"
     assert (OUTPUT_DIR / "lanes.html").exists(), "lanes.html must exist"
     assert (OUTPUT_DIR / "tags.html").exists(), "tags.html must exist"
     assert (OUTPUT_DIR / "theme" / "css" / "style.css").exists(), "style.css must exist"
@@ -26,9 +28,11 @@ def test_no_unauthored_or_corrupt_pages():
     """Ensure all root HTML files correspond to source content or standard entry points, and no corrupt artifacts exist."""
     content_dir = REPO_ROOT / "content"
     pages_dir = content_dir / "pages"
+    posts_dir = content_dir / "posts"
     authored_pages = {f"{p.stem}.html" for p in pages_dir.glob("*.md")} if pages_dir.exists() else set()
+    authored_posts = {f"{p.stem}.html" for p in posts_dir.glob("*.md")} if posts_dir.exists() else set()
     standard_entry_points = {"index.html", "lanes.html", "tags.html", "404.html"}
-    expected_root_html = authored_pages | standard_entry_points
+    expected_root_html = authored_pages | authored_posts | standard_entry_points
 
     # 1. Corrupt artifact check
     corrupt_filenames = ["false", "''", '""', "none", "null"]

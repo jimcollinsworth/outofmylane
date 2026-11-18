@@ -88,3 +88,10 @@ Every commit and meaningful change set must increment the project version:
 > 1. **`main` is Production-Only**: Merging to `main` and pushing to `origin main` is performed **ONLY** upon Jim's explicit instruction to "push", "publish", or "release".
 > 2. **Feature & Bug Branches for All Work**: All active work must occur on dedicated working branches (`feature/*`, `bug/*`, or `dev`).
 > 3. **No Remote Pushes Without Explicit Confirmation**: The agent must **NEVER push commits to any remote repository (`git push`) without Jim's explicit request or confirmation**.
+
+---
+
+## 8. Visual Evidence & Composite Browser Sheet Standard
+
+- Capture **viewport-only (`full_page=False`)** Playwright screenshots across **3 screen-size/orientation variations** (e.g., Phone Portrait `390x844`, Phone/Tablet Landscape `844x390` or `1180x820`, Desktop Landscape `1920x1080`) for **2 representative pages** (e.g., `index.html` and a target content/project page).
+- Wrap each viewport capture in a browser window frame that preserves the viewport aspect ratio (`object-fit: contain`), and combine captures onto a composite contact sheet (3-up or 4-per-page) rather than embedding unframed `full_page=True` scroll dumps.

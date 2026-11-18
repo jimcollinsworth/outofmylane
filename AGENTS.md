@@ -143,6 +143,8 @@ Every commit and meaningful change set must increment the project version:
 > [!IMPORTANT]
 > **Inline Visual Evidence Required for UI Changes**:
 > - Whenever work involves user interface changes, visual adjustments, or layout restructurings, the agent must **always provide visual screenshots directly in the report / walkthrough** presented to the user.
+> - Capture **viewport-only (`full_page=False`)** browser screenshots across **3 screen-size/orientation variations** (e.g., Phone Portrait `390x844`, Phone or Tablet Landscape `844x390` or `1180x820`, and Desktop Landscape `1920x1080`) for **2 representative pages** (e.g., `index.html` and a target content or project page).
+> - Frame each capture with a browser window header and preserve exact viewport aspect ratios (`object-fit: contain`), combining the captures onto a single composite contact sheet (e.g., 3-up or 4-per-page) rather than embedding raw vertical `full_page=True` document dumps.
 > - The agent must display visual evidence before asking for approval to push to remote branches or merge to `main`.
 > - Never claim UI changes are ready for push or release without giving the user immediate visual evidence to inspect.
 

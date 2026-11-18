@@ -170,6 +170,9 @@ template: post
 8. **Theme Reusability & Modular Pathing**:
    - Configure modular theme paths via `THEME = 'themes/lakefront'` for instant deployment across multiple sites.
 
+9. **Root-Level Project Routing from `content/posts/`**:
+   - Project entries stored in `content/posts/` with `type: project` (or `template: project`) and/or `url: <slug>.html` + `save_as: <slug>.html` retain article tags, dates, and index stream listing, while `route_projects_to_root` (`signals.content_object_init` in `pelicanconf.py`) defaults `override_url` and `override_save_as` to `{slug}.html` at the site root.
+
 ---
 
 ## 6. Verification Checklist
@@ -177,5 +180,5 @@ template: post
 After executing a static build:
 1. **Targeted Smoke Run**: `uv run pytest tests/test_accessibility.py -k test_html_lang_attribute`
 2. **Zero-JS Check**: Verify no unauthorized `<script>` tags were introduced into editorial content.
-3. **Link & Asset Integrity**: Ensure relative internal links and referenced images resolve cleanly.
-4. **Browser & Responsive Check**: Inspect computed styles, layout margins, and responsive viewports across mobile and desktop.
+3. **Link & Asset Integrity**: Ensure relative internal links and referenced images resolve.
+4. **Browser & Responsive Check**: Capture **viewport-only (`full_page=False`)** Playwright screenshots across **3 screen-size/orientation variations** (e.g., `390x844`, `1180x820` or `844x390`, `1920x1080`) for **2 representative pages**, framed with proportional aspect ratios (`object-fit: contain`) on a composite contact sheet.

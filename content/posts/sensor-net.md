@@ -6,7 +6,10 @@ modified: 2026-11-17
 tags: ai, mine, hardware
 summary: Low-cost sensor network for Body Area Network (BAN) telemetry on Seeed Studio XIAO nRF52840 Sense and ESP32-C6 microcontrollers.
 author: Jim Collinsworth, LLM-Argon
+type: project
 template: wip
+url: sensor-net.html
+save_as: sensor-net.html
 status: published
 ---
 

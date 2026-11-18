@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Metronome &mdash; Out of My Lane</title>
+  <link rel="stylesheet" href="./theme/css/style.css">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="./favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <input type="checkbox" id="theme-toggle" class="sr-only mode-toggle-input">
+  <input type="checkbox" id="contrast-toggle" class="sr-only mode-toggle-input">
+  <input type="checkbox" id="text-size-toggle" class="sr-only mode-toggle-input">
+
+  <div class="site-container">
+    <header class="site-header" role="banner">
+      <div class="header-main-row">
+        <div class="author-brand">
+          <a href="./index.html" class="author-name">Jim Collinsworth</a>
+        </div>
+        <div class="site-title-badge">
+          <span class="site-title-text">Out of My Lane</span>
+        </div>
+      </div>
+      <div class="header-nav-row">
+        <nav class="site-nav" aria-label="Main Navigation">
+            <a href="./index.html">Home</a>
+            <a href="./about.html">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+<article class="post-body wip-body">
+  <header class="post-header-full">
+    <div class="post-header-row">
+      <div class="post-header-left">
+        <a href="./index.html" class="post-back-arrow" title="Back to Home" aria-label="Back to Home">&larr;</a>
+        <span class="article-lead-icons">
+  <svg class="site-icon icon-wip" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+
+  <span class="provenance-badge dual-badge" title="Provenance: AI Assisted / Jim Collinsworth" aria-label="Provenance: AI Assisted / Jim Collinsworth">
+  <svg class="site-icon icon-ai" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M12 8V4H8"></path><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg>
+  <svg class="site-icon icon-mine" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
+</span>
+
+</span>
+
+        <h1 class="post-title">AI Metronome</h1>
+      </div>
+      <div class="post-header-right">
+        <span class="post-type">WIP</span>
+        <time datetime="2026-11-17">NOV 26</time>
+      </div>
+    </div>
+    <div class="post-meta-sub">
+      <span class="post-author">By Jim Collinsworth, LLM-Argon</span>
+    </div>
+  </header>
+
+  <div class="post-content wip-content">
+    <p><code>ai-metronome</code> is an embedded acoustic-synchronizing companion for mechanical metronomes (<a href="https://github.com/jimcollinsworth/ai-metronome">jimcollinsworth/ai-metronome</a>). Placed on or inside a physical metronome enclosure, the firmware listens to mechanical escapement clicks through an onboard pulse-density modulation (PDM) digital MEMS microphone, locks onto the tempo with a Phase-Locked Loop (PLL) beat clock, and drives RGB LED visual timing feedback without screens or external buttons.</p>
+<h2>Target Hardware &amp; Signal Processing</h2>
+<ul>
+<li><strong>Microcontroller</strong>: Seeed Studio XIAO nRF52840 Sense (<code>src/xiao_nrf52840_sense/circuitpython/code.py</code>).</li>
+<li><strong>Acoustic Input</strong>: Onboard PDM digital MEMS microphone (<code>audiobusio.PDMIn</code> DMA ring buffer) with band-limited transient filtering, attack-slope gating, and adaptive ambient noise floor tracking to isolate mechanical tick transients from polyphonic piano audio and room reverberation.</li>
+<li><strong>Motion Input</strong>: Onboard 6-axis LSM6DS3TR-C inertial measurement unit (IMU) over internal I2C for gesture recognition.</li>
+<li><strong>Oscillator</strong>: Internal Phase-Locked Loop (PLL) beat clock driving LED timing across acoustic dropouts.</li>
+</ul>
+<h2>Operating Modes &amp; IMU Gesture Switching</h2>
+<p>Mode selection is controlled through the onboard accelerometer using two physical gestures:</p>
+<ol>
+<li><strong>Two Shakes</strong>: Pick up the unit and shake it back and forth twice.</li>
+<li><strong>Single Drop / Surface Tap</strong>: Set or tap the unit onto the table or piano surface.</li>
+</ol>
+<p>Upon gesture detection, the device emits a 350 ms white LED burst (all RGB diodes illuminated), pauses, and flashes <em>N</em> pulses in the active mode's color (1 to 4) while resetting refractory audio timers:</p>
+<ul>
+<li><strong>Mode 1 — On-Beat (Red)</strong>: Emits a red flash synchronized with every physical click (1×).</li>
+<li><strong>Mode 2 — Upbeat / In-Between (Blue)</strong>: Emits a blue flash halfway between beats (<code>t + IOI/2</code>).</li>
+<li><strong>Mode 3 — 4/4 Meter (Green)</strong>: Emits a green flash on Beat 1 (downbeat) and remains dark on Beats 2, 3, and 4. Resets to Beat 1 after 2 seconds of silence.</li>
+<li><strong>Mode 4 — 3/4 Meter (Green)</strong>: Emits a green flash on Beat 1 (downbeat) and remains dark on Beats 2 and 3. Resets to Beat 1 after 2 seconds of silence.</li>
+</ul>
+<h2>Hardware-in-the-Loop Tooling (<code>xiao-cli</code>)</h2>
+<p>The repository provides <code>xiao-cli</code> (<code>tools/xiao_cli.py</code>) to discover mounted <code>CIRCUITPY</code> USB drives and serial COM ports at 115200 baud:</p>
+<ul>
+<li><code>uv run xiao-cli status</code>: Reports drive mount path, <code>boot_out.txt</code> runtime build info, COM port, and USB VID/PID.</li>
+<li><code>uv run xiao-cli deploy --test</code>: Copies firmware to flash and runs the 6-point on-device verification suite (<code>POWER_DIAG</code>, <code>MIC_POWER</code>, <code>MIC_DMA_STREAM</code>, <code>IMU_BUS</code>, <code>IMU_ACCEL</code>, <code>CAL_AND_READY</code>).</li>
+<li><code>uv run xiao-cli monitor</code>: Streams live serial telemetry including click detections, noise floor shifts, BPM calculations, and IMU gesture events.</li>
+</ul>
+  </div>
+
+  <footer class="post-footer">
+    <span class="post-tags-list">
+      <a href="./tags/ai.html" class="tag-badge">#ai</a>
+      <a href="./tags/mine.html" class="tag-badge">#mine</a>
+      <a href="./tags/hardware.html" class="tag-badge">#hardware</a>
+      <a href="./tags/music.html" class="tag-badge">#music</a>
+    </span>
+  </footer>
+</article>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <nav class="footer-nav" aria-label="Footer Navigation">
+          <a href="./index.html">Home</a>
+          <a href="./about.html">About</a>
+      </nav>
+      <div class="footer-controls">
+        <div class="site-controls" role="group" aria-label="Display and accessibility preferences">
+          <label for="theme-toggle" class="control-btn" title="Toggle theme (Light / Dark)" aria-label="Toggle theme (Light / Dark)">
+            <svg class="control-icon icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="control-icon icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="sr-only">Toggle dark and light color theme</span>
+          </label>
+          <label for="contrast-toggle" class="control-btn" title="Toggle high-contrast mode" aria-label="Toggle high-contrast mode">
+            <svg class="control-icon icon-contrast" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"></path>
+            </svg>
+            <span class="sr-only">Toggle high contrast reading mode</span>
+          </label>
+          <label for="text-size-toggle" class="control-btn" title="Toggle larger text size" aria-label="Toggle larger text size">
+            <svg class="control-icon icon-text-size" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <text x="3" y="18" font-size="14" font-weight="700" fill="currentColor" font-family="sans-serif">A</text>
+              <text x="14" y="13" font-size="10" font-weight="700" fill="currentColor" font-family="sans-serif">A</text>
+            </svg>
+            <span class="sr-only">Toggle larger text size</span>
+          </label>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

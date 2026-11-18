@@ -6,7 +6,10 @@ modified: 2026-11-17
 tags: ai, mine, hardware, music
 summary: Embedded acoustic-synchronizing companion for mechanical metronomes using an onboard digital MEMS microphone, Phase-Locked Loop beat clock, and 6-axis IMU gesture control.
 author: Jim Collinsworth, LLM-Argon
+type: project
 template: wip
+url: ai-metronome.html
+save_as: ai-metronome.html
 status: published
 ---
 
