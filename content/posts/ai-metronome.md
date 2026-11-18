@@ -3,16 +3,12 @@ title: AI Metronome
 slug: ai-metronome
 date: 2026-11-17
 modified: 2026-11-17
-category: page
 tags: ai, mine, hardware, music
 summary: Embedded acoustic-synchronizing companion for mechanical metronomes using an onboard digital MEMS microphone, Phase-Locked Loop beat clock, and 6-axis IMU gesture control.
 author: Jim Collinsworth, LLM-Argon
-template: page
-type: project
+template: wip
 status: published
 ---
-
-# AI Metronome
 
 `ai-metronome` is an embedded acoustic-synchronizing companion for mechanical metronomes ([jimcollinsworth/ai-metronome](https://github.com/jimcollinsworth/ai-metronome)). Placed on or inside a physical metronome enclosure, the firmware listens to mechanical escapement clicks through an onboard pulse-density modulation (PDM) digital MEMS microphone, locks onto the tempo with a Phase-Locked Loop (PLL) beat clock, and drives RGB LED visual timing feedback without screens or external buttons.
 

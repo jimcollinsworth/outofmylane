@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% from "category_icon.html" import article_icons %}
+
+{% block title %}{{ article.title }} &mdash; {{ SITENAME }}{% endblock %}
+
+{% block content %}
+<article class="post-body wip-body">
+  <header class="post-header-full">
+    <div class="post-header-row">
+      <div class="post-header-left">
+        {% if article.category %}
+        <a href="{{ SITEURL }}/lanes/{{ article.category.slug }}.html" class="post-back-arrow" title="Back to Lane: {{ article.category.name }}" aria-label="Back to Lane: {{ article.category.name }}">&larr;</a>
+        {% else %}
+        <a href="{{ SITEURL }}/index.html" class="post-back-arrow" title="Back to Home" aria-label="Back to Home">&larr;</a>
+        {% endif %}
+        {{ article_icons(article) }}
+        <h1 class="post-title">{{ article.title }}</h1>
+      </div>
+      <div class="post-header-right">
+        <span class="post-type">WIP</span>
+        <time datetime="{{ article.date.strftime('%Y-%m-%d') }}">{{ article.date.strftime('%b %y')|upper }}</time>
+      </div>
+    </div>
+    {% if article.author and article.author != AUTHOR %}
+    <div class="post-meta-sub">
+      <span class="post-author">By {{ article.author }}</span>
+    </div>
+    {% endif %}
+  </header>
+
+  <div class="post-content wip-content">
+    {{ article.content }}
+  </div>
+
+  {% if article.category or article.tags %}
+  <footer class="post-footer">
+    {% if article.category %}
+    <span class="post-lane-tag">Lane: <a href="{{ SITEURL }}/lanes/{{ article.category.slug }}.html">{{ article.category.name }}</a></span>
+    {% endif %}
+    {% if article.tags %}
+    <span class="post-tags-list">
+      {% for tag in article.tags %}
+      <a href="{{ SITEURL }}/tags/{{ tag.slug }}.html" class="tag-badge">#{{ tag.name }}</a>
+      {% endfor %}
+    </span>
+    {% endif %}
+  </footer>
+  {% endif %}
+</article>
+{% endblock %}

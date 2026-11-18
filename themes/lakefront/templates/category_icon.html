@@ -41,6 +41,8 @@ Author: Jim Collinsworth & LLM-Gemini3.8
 <svg class="site-icon icon-photo" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
 {% elif t == 'chat' %}
 <svg class="site-icon icon-chat" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+{% elif t == 'wip' %}
+<svg class="site-icon icon-wip" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
 {% else %}
 <svg class="site-icon icon-post" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line></svg>
 {% endif %}
@@ -49,11 +51,11 @@ Author: Jim Collinsworth & LLM-Gemini3.8
 {% macro article_icons(article) %}
 {% set tag_names = article.tags|map(attribute='name')|join(', ') if article.tags is defined and article.tags else '' %}
 <span class="article-lead-icons">
-  {% if article.template in ['project', 'app'] or article.type in ['project', 'app'] %}
-  {{ type_icon('project') }}
+  {% if article.template in ['project', 'app', 'wip'] or article.type in ['project', 'app', 'wip'] %}
+  {{ type_icon(article.template or article.type) }}
   {% endif %}
   {{ provenance_icon(article.provenance or tag_names, article.author) }}
-  {% if not (article.template in ['project', 'app'] or article.type in ['project', 'app']) and not (article.provenance or 'mine' in tag_names) %}
+  {% if not (article.template in ['project', 'app', 'wip'] or article.type in ['project', 'app', 'wip']) and not (article.provenance or 'mine' in tag_names) %}
   {{ type_icon(article.template or article.type or 'post') }}
   {% endif %}
 </span>
